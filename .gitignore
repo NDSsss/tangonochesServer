@@ -74,3 +74,7 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+
+#laravel-ide-helper
+.phpstorm.meta.php
+_ide_helper.php
