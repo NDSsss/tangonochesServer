@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    echo('Base Prepared with announces!!!');
+    echo('Deploy works!!!');
 });
 
 Route::group(['namespace'=>'School','prefix'=>'school'], function (){
