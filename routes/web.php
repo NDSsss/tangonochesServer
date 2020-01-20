@@ -18,3 +18,11 @@ Route::get('/', function () {
 Route::group(['namespace'=>'School','prefix'=>'school'], function (){
     Route::resource('teacher','TeacherController')->names('school.teacher');
 });
+
+Route::group(['namespace'=>'Admin\School','prefix'=>'admin/school'], function (){
+    Route::resource('teacher','AdminSchoolTeachersController')->names('admin.school.teacher');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
