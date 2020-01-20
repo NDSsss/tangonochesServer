@@ -78,3 +78,4 @@ fabric.properties
 #laravel-ide-helper
 .phpstorm.meta.php
 _ide_helper.php
+public_html
