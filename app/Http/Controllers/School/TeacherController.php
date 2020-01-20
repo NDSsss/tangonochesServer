@@ -16,8 +16,9 @@ class TeacherController extends Controller
     public function index()
     {
         $items = Teacher::all();
-//        dd($items);
-        return view('school.teacher.index', $items);
+        $tst = 'tstValue';
+        $tst2 = 'tstValue';
+        return view('school.teacher.index', compact('items'));
     }
 
     /**
