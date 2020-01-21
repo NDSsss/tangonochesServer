@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @php/** @var \App\Models\Teacher $item */@endphp
     <div>
         <a href="{{route('admin.school.teachers.index')}}">Весь список</a>
     </div>
