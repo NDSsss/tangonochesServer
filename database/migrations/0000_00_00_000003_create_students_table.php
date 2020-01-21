@@ -28,6 +28,9 @@ class CreateStudentsTable extends Migration
             $table->string('push_token')->nullable();
             $table->integer('barcode_id')->unique()->nullable();
 
+            $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

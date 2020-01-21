@@ -25,12 +25,14 @@ class CreateTicketsTable extends Migration
             $table->unsignedBigInteger('teacher_id');
             $table->boolean('is_in_pair')->default(false);
 
+            $table->timestamps();
+            $table->softDeletes();
+
+
             $table->foreign('ticket_count_type_id')->references('id')->on('ticket_count_types');
             $table->foreign('ticket_event_type_id')->references('id')->on('ticket_event_types');
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('teacher_id')->references('id')->on('teachers');
-            $table->timestamps();
-
 
         });
     }

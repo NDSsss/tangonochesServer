@@ -16,11 +16,11 @@ Route::get('/', function () {
 });
 
 Route::group(['namespace'=>'School','prefix'=>'school'], function (){
-    Route::resource('teacher','TeacherController')->names('school.teacher');
+    Route::resource('teachers','TeacherController')->names('school.teachers');
 });
 
 Route::group(['namespace'=>'Admin\School','prefix'=>'admin/school'], function (){
-    Route::resource('teacher','AdminSchoolTeachersController')->names('admin.school.teacher');
+    Route::resource('teachers','AdminSchoolTeachersController')->names('admin.school.teachers');
 });
 
 Auth::routes();

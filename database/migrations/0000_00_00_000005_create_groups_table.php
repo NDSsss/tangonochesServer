@@ -21,6 +21,7 @@ class CreateGroupsTable extends Migration
             $table->string('address')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

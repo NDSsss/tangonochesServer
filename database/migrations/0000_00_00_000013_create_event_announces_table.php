@@ -23,6 +23,7 @@ class CreateEventAnnouncesTable extends Migration
             $table->string('is_active')->default(true);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

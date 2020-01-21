@@ -17,7 +17,9 @@ class CreateTeachersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->unsignedBigInteger('default_teacher_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

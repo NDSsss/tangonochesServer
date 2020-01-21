@@ -1,10 +1,14 @@
-<table>
-    @if(!empty($items))
-        @foreach($items as $item)
-            <tr>
-                <td>{{$item->id}}</td>
-                <td>{{$item->name}}</td>
-            </tr>
-        @endforeach
-    @endif
-</table>
+@extends('layouts.app')
+
+@section('content')
+    <table>
+        @if(!empty($items))
+            @foreach($items as $item)
+                <tr>
+                    <td>{{$item->id}}</td>
+                    <td>{{$item->name}}</td>
+                </tr>
+            @endforeach
+        @endif
+    </table>
+@endsection

@@ -17,7 +17,9 @@ class CreateLessonsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('group_id');
+
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('group_id')->references('id')->on('groups');
         });

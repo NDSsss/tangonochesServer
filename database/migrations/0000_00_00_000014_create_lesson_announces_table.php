@@ -24,6 +24,7 @@ class CreateLessonAnnouncesTable extends Migration
             $table->string('is_active')->default(true);
 
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('group_id')->references('id')->on('groups');
         });
