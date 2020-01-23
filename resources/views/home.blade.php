@@ -24,6 +24,8 @@
                                             </li>
                                             <li><a href="http://tangonoches.local/admin/school/students">Students</a>
                                             </li>
+                                            <li><a href="http://tangonoches.local/admin/school/groups">Groups</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>

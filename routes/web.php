@@ -22,6 +22,7 @@ Route::group(['namespace'=>'School','prefix'=>'school'], function (){
 Route::group(['namespace'=>'Admin\School','prefix'=>'admin/school'], function (){
     Route::resource('teachers','AdminSchoolTeachersController')->names('admin.school.teachers');
     Route::resource('students','AdminSchoolStudentsController')->names('admin.school.students');
+    Route::resource('groups','AdminSchoolGroupsController')->names('admin.school.groups');
 });
 
 Auth::routes();
