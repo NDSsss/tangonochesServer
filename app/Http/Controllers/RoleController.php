@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\School;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Teacher;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
-class TeacherController extends BaseSchoolController
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,7 @@ class TeacherController extends BaseSchoolController
      */
     public function index()
     {
-        $items = Teacher::all();
-        $tst = 'tstValue';
-        $tst2 = 'tstValue';
-        return view('school.teachers.index', compact('items'));
+        //
     }
 
     /**
@@ -34,7 +30,7 @@ class TeacherController extends BaseSchoolController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,10 +41,10 @@ class TeacherController extends BaseSchoolController
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
         //
     }
@@ -56,10 +52,10 @@ class TeacherController extends BaseSchoolController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
         //
     }
@@ -67,11 +63,11 @@ class TeacherController extends BaseSchoolController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -79,10 +75,10 @@ class TeacherController extends BaseSchoolController
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
         //
     }

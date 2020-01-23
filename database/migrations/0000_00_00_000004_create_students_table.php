@@ -16,7 +16,7 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('phone')->unique();
+            $table->string('phone')->nullable()->unique();
             $table->string('vk_profile_link')->nullable();
             $table->bigInteger('vk_profile_id')->unique()->nullable();
             $table->string('facebook_profile_link')->nullable();

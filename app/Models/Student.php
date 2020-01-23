@@ -22,4 +22,18 @@ class Student extends Model
         'push_token' => 'push_token def',
         'barcode_id' => 1,
     ];
+    protected $fillable = [
+        'name',
+        'phone',
+        'vk_profile_link',
+        'vk_profile_id',
+        'facebook_profile_link',
+        'facebook_profile_id',
+        'instagram_profile_link',
+        'instagram_profile_id',
+        'photo_link',
+        'extra_info',
+        'push_token',
+        'barcode_id',
+    ];
 }

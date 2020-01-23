@@ -36,7 +36,7 @@ class AdminSchoolTeachersController extends BaseAdminSchoolController
     {
         $paginator = $this->teachersRepository->getAllTeachersPaginated();
 
-        return view('admin.school.teacher.index', compact('paginator'));
+        return view('admin.school.teachers.index', compact('paginator'));
     }
 
     /**
@@ -48,7 +48,7 @@ class AdminSchoolTeachersController extends BaseAdminSchoolController
     {
         $item = Teacher::make();
         $allTeachers = $this->teachersRepository->getAllTeachers();
-        return view('admin.school.teacher.edit', compact('item','allTeachers'));
+        return view('admin.school.teachers.edit', compact('item','allTeachers'));
     }
 
     /**
@@ -94,7 +94,7 @@ class AdminSchoolTeachersController extends BaseAdminSchoolController
             abort(404);
         }
         $allTeachers = $this->teachersRepository->getAllTeachers();
-        return view('admin.school.teacher.edit', compact('item','allTeachers'));
+        return view('admin.school.teachers.edit', compact('item','allTeachers'));
     }
 
     /**

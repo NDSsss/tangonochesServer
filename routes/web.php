@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    echo('Deploy works!!!');
+    return view('home');
 });
 
 Route::group(['namespace'=>'School','prefix'=>'school'], function (){
@@ -21,6 +21,7 @@ Route::group(['namespace'=>'School','prefix'=>'school'], function (){
 
 Route::group(['namespace'=>'Admin\School','prefix'=>'admin/school'], function (){
     Route::resource('teachers','AdminSchoolTeachersController')->names('admin.school.teachers');
+    Route::resource('students','AdminSchoolStudentsController')->names('admin.school.students');
 });
 
 Auth::routes();

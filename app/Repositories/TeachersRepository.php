@@ -11,13 +11,6 @@ use Illuminate\Support\Collection;
 
 class TeachersRepository extends  BaseRepository
 {
-    /**
-     * @return string
-     */
-    protected function getModelClass()
-    {
-        return Teacher::class;
-    }
 
     function getAllTeachersPaginated(): LengthAwarePaginator
     {
@@ -38,6 +31,5 @@ class TeachersRepository extends  BaseRepository
 
     function storeTeacher($data):Teacher {
         return Teacher::create($data);
-
     }
 }
