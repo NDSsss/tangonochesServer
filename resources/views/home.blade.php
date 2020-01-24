@@ -26,6 +26,8 @@
                                             </li>
                                             <li><a href="http://tangonoches.local/admin/school/groups">Groups</a>
                                             </li>
+                                            <li><a href="http://tangonoches.local/admin/school/ticketCountTypes">ticketCountTypes</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
