@@ -3,66 +3,53 @@
 namespace App\Http\Controllers\Admin\School;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\School\TeacherCreateRequest;
-use App\Models\Teacher;
 use App\Repositories\BaseRepository;
-use App\Repositories\TeachersRepository;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class AdminSchoolTeachersController extends BaseAdminSchoolController
+abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
 {
-
     /**
      * @var BaseRepository
      */
-    private $repository;
+    protected $repository;
 
-    /**
-     * AdminSchoolTeachersController constructor.
-     * @param TeachersRepository $teachersRepository
-     */
-    public function __construct(TeachersRepository $teachersRepository)
-    {
-        $this->repository = $teachersRepository;
-    }
-
+    abstract function getModelPath():string;
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $paginator = $this->repository->getAllItemsPaginated();
 
-        return view('admin.school.teachers.index', compact('paginator'));
+        return view('admin.school..'.$this->getModelPath().'..index', compact('paginator'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $item = Teacher::make();
-        $allTeachers = $this->repository->getAllItems();
-        return view('admin.school.teachers.edit', compact('item','allTeachers'));
+        $item = $this->repository->createItem();
+        $AllItems = $this->repository->getAllItems();
+        return view('admin.school.'.$this->getModelPath().'.edit', compact('item', 'AllItems'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param TeacherCreateRequest $request
-     * @return RedirectResponse
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(TeacherCreateRequest $request)
+    public function store(Request $request)
     {
-        $teacher = $this->repository->storeItem($request->input());
-        if ($teacher) {
-            return redirect()->route('admin.school.teachers.edit', [$teacher->id])
+        $group = $this->repository->storeItem($request->input());
+        if ($group) {
+            return redirect()->route('admin.school.'.$this->getModelPath().'.edit', [$group->id])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()->withErrors(['msg' => 'Ошибка сохранения'])
@@ -78,7 +65,6 @@ class AdminSchoolTeachersController extends BaseAdminSchoolController
      */
     public function show($id)
     {
-
         dd($id, __METHOD__);
     }
 
@@ -86,16 +72,16 @@ class AdminSchoolTeachersController extends BaseAdminSchoolController
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $item = $this->repository->getItemById($id);
-        if(empty($item)){
+        if (empty($item)) {
             abort(404);
         }
-        $allTeachers = $this->repository->getAllItems();
-        return view('admin.school.teachers.edit', compact('item','allTeachers'));
+        $AllItems = $this->repository->getAllItems();
+        return view('admin.school.'.$this->getModelPath().'.edit', compact('item', 'AllItems'));
     }
 
     /**
@@ -103,26 +89,26 @@ class AdminSchoolTeachersController extends BaseAdminSchoolController
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $teacher = $this->repository->getItemById($id);
-        if(empty($teacher)){
+        $group = $this->repository->getItemById($id);
+        if (empty($group)) {
             return back()
-                ->withErrors(['msg'=>"Преподователь с id={$id} не найден"])
+                ->withErrors(['msg' => "Преподователь с id={$id} не найден"])
                 ->withInput();
         }
 
         $data = $request->all();
-        $result = $teacher->update($data);
-        if($result){
+        $result = $group->update($data);
+        if ($result) {
             return redirect()
-                ->route('admin.school.teachers.edit',$teacher->id)
-                ->with(['success'=>'Успешно сохранено']);
+                ->route('admin.school.'.$this->getModelPath().'.edit', $group->id)
+                ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
-                ->withErrors(['msg'=>'Ошибка сохранения'])
+                ->withErrors(['msg' => 'Ошибка сохранения'])
                 ->withInput();
         }
     }
@@ -131,14 +117,14 @@ class AdminSchoolTeachersController extends BaseAdminSchoolController
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $result = $this->repository->destroyItem($id);
         if ($result) {
             return redirect()
-                ->route('admin.school.teachers.index')
+                ->route('admin.school.'.$this->getModelPath().'.index')
                 ->with(['success' => "Преподователь id[$id] удален"]);
         } else {
             return back()->withErrors(['msg' => 'Ошибка удаления']);

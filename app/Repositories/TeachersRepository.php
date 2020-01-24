@@ -5,31 +5,24 @@ namespace App\Repositories;
 
 
 use App\Models\Teacher;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 
-class TeachersRepository extends  BaseRepository
+class TeachersRepository extends BaseRepository
 {
-
-    function getAllTeachersPaginated(): LengthAwarePaginator
+    /**
+     * @return string
+     */
+    protected function getModelClass()
     {
-        return $this->getAllTeachersQuery()->paginate(5);
-    }
-    function getAllTeachers(): Collection
-    {
-        return $this->getAllTeachersQuery()->get();
-    }
-    function getTeacherById($id):Teacher{
-        return $this->getAllTeachersQuery()->where('id','=',$id)->get()->first();
+        return Teacher::class;
     }
 
-    private function getAllTeachersQuery(): Builder
+    protected function getColumnsForSelect(): array
     {
-        return Teacher::query()->select(['id','name','default_teacher_id']);
+        return ['id', 'name', 'default_teacher_id'];
     }
 
-    function storeTeacher($data):Teacher {
-        return Teacher::create($data);
+    protected function getPaginateCount(): int
+    {
+        return 10;
     }
 }
