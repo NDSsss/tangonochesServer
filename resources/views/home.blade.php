@@ -20,15 +20,15 @@
                                     <li>
                                         School
                                         <ul>
-                                            <li><a href="http://tangonoches.local/admin/school/teachers">Teachers</a>
+                                            <li><a href='{{route('admin.school.students.index')}}'>Teachers</a>
                                             </li>
-                                            <li><a href="http://tangonoches.local/admin/school/students">Students</a>
+                                            <li><a href='{{route('admin.school.teachers.index')}}'>Students</a>
                                             </li>
-                                            <li><a href="http://tangonoches.local/admin/school/groups">Groups</a>
+                                            <li><a href='{{route('admin.school.groups.index')}}'>Groups</a>
                                             </li>
-                                            <li><a href="http://tangonoches.local/admin/school/ticketCountTypes">ticketCountTypes</a>
+                                            <li><a href='{{route('admin.school.ticketCountTypes.index')}}'>ticketCountTypes</a>
                                             </li>
-                                            <li><a href="http://tangonoches.local/admin/school/ticketEventTypes">ticketEventTypes</a>
+                                            <li><a href='{{route('admin.school.ticketEventTypes.index')}}'>ticketEventTypes</a>
                                             </li>
                                         </ul>
                                     </li>
