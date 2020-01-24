@@ -16,11 +16,7 @@ class AdminSchoolStudentsController extends BaseSimpleAdminSchoolController
      */
     public function __construct(StudentsRepository $studentsRepository)
     {
+        parent::__construct(0);
         $this->repository = $studentsRepository;
-    }
-
-    function getModelPath(): string
-    {
-        return 'students';
     }
 }

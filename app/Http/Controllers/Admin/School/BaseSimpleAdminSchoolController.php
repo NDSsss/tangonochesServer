@@ -12,8 +12,23 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
      * @var BaseRepository
      */
     protected $repository;
+    protected $currentPath;
 
-    abstract function getModelPath():string;
+    /**
+     * BaseSimpleAdminSchoolController constructor.
+     * @param int $numberInPages
+     */
+    public function __construct($numberInPages)
+    {
+        $adminConfig = config('global.admin_routes');
+        $adminPath = $adminConfig['prefix'];
+        $group = $adminConfig['global_groups'][0];
+        $groupPath = $group['group_prefix'];
+        $pagePath = $group['pages'][$numberInPages][0];
+        $this->currentPath = "$adminPath.$groupPath.$pagePath";
+
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -24,7 +39,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
     {
         $paginator = $this->repository->getAllItemsPaginated();
 
-        return view('admin.school..'.$this->getModelPath().'..index', compact('paginator'));
+        return view($this->currentPath . '.index', compact('paginator'));
     }
 
     /**
@@ -36,7 +51,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
     {
         $item = $this->repository->createItem();
         $AllItems = $this->repository->getAllItems();
-        return view('admin.school.'.$this->getModelPath().'.edit', compact('item', 'AllItems'));
+        return view($this->currentPath . '.edit', compact('item', 'AllItems'));
     }
 
     /**
@@ -49,7 +64,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
     {
         $group = $this->repository->storeItem($request->input());
         if ($group) {
-            return redirect()->route('admin.school.'.$this->getModelPath().'.edit', [$group->id])
+            return redirect()->route($this->currentPath . '.edit', [$group->id])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()->withErrors(['msg' => 'Ошибка сохранения'])
@@ -81,7 +96,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
             abort(404);
         }
         $AllItems = $this->repository->getAllItems();
-        return view('admin.school.'.$this->getModelPath().'.edit', compact('item', 'AllItems'));
+        return view($this->currentPath . '.edit', compact('item', 'AllItems'));
     }
 
     /**
@@ -104,7 +119,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
         $result = $group->update($data);
         if ($result) {
             return redirect()
-                ->route('admin.school.'.$this->getModelPath().'.edit', $group->id)
+                ->route($this->currentPath . '.edit', $group->id)
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -124,7 +139,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
         $result = $this->repository->destroyItem($id);
         if ($result) {
             return redirect()
-                ->route('admin.school.'.$this->getModelPath().'.index')
+                ->route($this->currentPath . '.index')
                 ->with(['success' => "Преподователь id[$id] удален"]);
         } else {
             return back()->withErrors(['msg' => 'Ошибка удаления']);

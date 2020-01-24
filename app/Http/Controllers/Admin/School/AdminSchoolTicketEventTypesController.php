@@ -16,11 +16,7 @@ class AdminSchoolTicketEventTypesController extends BaseSimpleAdminSchoolControl
      */
     public function __construct(TicketEventTypesRepository $groupsRepository)
     {
+        parent::__construct(4);
         $this->repository = $groupsRepository;
-    }
-
-    function getModelPath(): string
-    {
-        return 'ticketEventTypes';
     }
 }

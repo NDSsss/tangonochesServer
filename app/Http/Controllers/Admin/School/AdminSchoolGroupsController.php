@@ -14,11 +14,7 @@ class AdminSchoolGroupsController extends BaseSimpleAdminSchoolController
      */
     public function __construct(GroupsRepository $groupsRepository)
     {
+        parent::__construct(2);
         $this->repository = $groupsRepository;
-    }
-
-    function getModelPath(): string
-    {
-        return 'groups';
     }
 }
