@@ -15,15 +15,31 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::group(['namespace'=>'School','prefix'=>'school'], function (){
-    Route::resource('teachers','TeacherController')->names('school.teachers');
+Route::group(['namespace' => 'School', 'prefix' => 'school'], function () {
+    Route::resource('teachers', 'TeacherController')->names('school.teachers');
 });
 
-Route::group(['namespace'=>'Admin\School','prefix'=>'admin/school'], function (){
-    Route::resource('teachers','AdminSchoolTeachersController')->names('admin.school.teachers');
-    Route::resource('students','AdminSchoolStudentsController')->names('admin.school.students');
-    Route::resource('groups','AdminSchoolGroupsController')->names('admin.school.groups');
-});
+$adminSpace = config('global.admin_routes');
+$adminNamespace = $adminSpace['namespace'];
+$adminPrefix = $adminSpace['prefix'];
+$adminGlobalGroups = $adminSpace['global_groups'];
+foreach ($adminGlobalGroups as $globalGroupSpace) {
+    $globalGroupNameSpace = $globalGroupSpace['group_namespace'];
+    $globalGroupPrefix = $globalGroupSpace['group_prefix'];
+    $globalGroupPages = $globalGroupSpace['pages'];
+    Route::group(
+        ['namespace' =>
+            $adminNamespace . $globalGroupNameSpace,
+            'prefix' =>
+                $adminPrefix .'/'. $globalGroupPrefix]
+        , function () use ($adminPrefix, $globalGroupPrefix, $globalGroupPages) {
+        foreach ($globalGroupPages as $pageSpace) {
+            $pageRoute = $pageSpace[0];
+            $pageController = $pageSpace[1];
+            Route::resource($pageRoute, $pageController)->names("$adminPrefix." . "$globalGroupPrefix." . $pageRoute);
+        }
+    });
+}
 
 Auth::routes();
 

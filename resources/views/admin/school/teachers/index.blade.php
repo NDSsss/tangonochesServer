@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+    //admin.school.teachers
+    $adminConfig = config('global.admin_routes');
+    $adminPath = $adminConfig['prefix'];
+    $group = $adminConfig['global_groups'][0];
+    $groupPath = $group['group_prefix'];
+    $pagePath = $group['pages'][1][0];
+    $currentRoute = "$adminPath.$groupPath.$pagePath";
+    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -8,7 +17,7 @@
                 @include('includes.result_messages')
 
                 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                    <a class="btn btn-primary" href="{{ route('admin.school.teachers.create') }}">Добавить</a>
+                    <a class="btn btn-primary" href="{{ route("$currentRoute.create") }}">Добавить</a>
                 </nav>
                 <div class="card">
                     <div class="card-body">
@@ -27,7 +36,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{$teacher->id}}</td>
-                                        <td><a href="{{route('admin.school.teachers.edit',$teacher->id)}}">{{$teacher->name}}</a></td>
+                                        <td><a href="{{route("$currentRoute.edit",$teacher->id)}}">{{$teacher->name}}</a></td>
                                     </tr>
                                 @endforeach
                             @endif
