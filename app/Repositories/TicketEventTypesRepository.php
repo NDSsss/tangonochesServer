@@ -4,7 +4,6 @@
 namespace App\Repositories;
 
 
-use App\Models\TicketCountType;
 use App\Models\TicketEventType;
 
 class TicketEventTypesRepository extends BaseRepository
