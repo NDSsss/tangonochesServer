@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketEventType extends Model
 {
-    //
+    protected $fillable = [
+        'name'
+    ];
 }

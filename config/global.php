@@ -12,7 +12,8 @@ return [
                         ['students', 'AdminSchoolStudentsController'],
                         ['teachers', 'AdminSchoolTeachersController'],
                         ['groups', 'AdminSchoolGroupsController'],
-                        ['ticketCountTypes', 'AdminSchoolTicketCountTypesController']
+                        ['ticketCountTypes', 'AdminSchoolTicketCountTypesController'],
+                        ['ticketEventTypes', 'AdminSchoolTicketEventTypesController']
                     ]
             ]
         ]

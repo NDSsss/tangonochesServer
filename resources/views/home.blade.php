@@ -28,6 +28,8 @@
                                             </li>
                                             <li><a href="http://tangonoches.local/admin/school/ticketCountTypes">ticketCountTypes</a>
                                             </li>
+                                            <li><a href="http://tangonoches.local/admin/school/ticketEventTypes">ticketEventTypes</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>

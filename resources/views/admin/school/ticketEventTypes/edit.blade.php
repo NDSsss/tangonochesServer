@@ -7,7 +7,7 @@
         $adminPath = $adminConfig['prefix'];
         $group = $adminConfig['global_groups'][0];
         $groupPath = $group['group_prefix'];
-        $pagePath = $group['pages'][3][0];
+        $pagePath = $group['pages'][4][0];
         $currentRoute = "$adminPath.$groupPath.$pagePath";
     @endphp
     <div>
