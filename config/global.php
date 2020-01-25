@@ -13,7 +13,8 @@ return [
                         ['teachers', 'AdminSchoolTeachersController'],
                         ['groups', 'AdminSchoolGroupsController'],
                         ['ticketCountTypes', 'AdminSchoolTicketCountTypesController'],
-                        ['ticketEventTypes', 'AdminSchoolTicketEventTypesController']
+                        ['ticketEventTypes', 'AdminSchoolTicketEventTypesController'],
+                        ['lessons', 'AdminSchoolLessonsController']
                     ]
             ]
         ]

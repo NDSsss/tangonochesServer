@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+    $results = ['one','two','three','four','five',];
+    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -30,11 +33,30 @@
                                             </li>
                                             <li><a href='{{route('admin.school.ticketEventTypes.index')}}'>ticketEventTypes</a>
                                             </li>
+                                            <li><a href='{{route('admin.school.lessons.index')}}'>Lessons</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
+
+                            <template>
+                                <div>
+                                    <input type="text" placeholder="what are you looking for?" v-model="query" v-on:keyup="autoComplete" class="form-control">
+                                    <div class="panel-footer" v-if="true">
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="result in results">
+                                                {{ $results[0] }}
+                                            </li>
+                                            <li>
+                                                {{$results[0]}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </template>
+
                     </div>
                 </div>
             </div>
