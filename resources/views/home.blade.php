@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -30,6 +31,8 @@
                                             </li>
                                             <li><a href='{{route('admin.school.ticketEventTypes.index')}}'>ticketEventTypes</a>
                                             </li>
+                                            <li><a href='{{route('admin.school.lessons.index')}}'>Lessons</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -40,4 +43,8 @@
             </div>
         </div>
     </div>
+
+{{--    <example-component>--}}
+
+{{--    </example-component>--}}
 @endsection
