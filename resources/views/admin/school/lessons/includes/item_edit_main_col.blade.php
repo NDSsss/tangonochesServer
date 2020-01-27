@@ -24,16 +24,57 @@
                                    required>
                         </div>
                     </div>
-                    <div class="tab-pane active" id="maindata" role="tabpanel">
-                        <div class="form-group">
-                            <label for="group_id">Группа</label>
-                            <input name="group_id" value="{{ $item->group_id }}"
-                                   id="first_lesson_time"
-                                   type="text"
-                                   class="form-control"
-                                   minlength="3"
-                                   required>
-                        </div>
+
+                    <div class="form-group">
+                        <label for="group_id">Группа</label>
+                        <select name="group_id"
+                                id="group_id"
+                                class="form-control"
+                                placeholder="Группа"
+                                required>
+                            @foreach($groups as $group)
+                                <option value="{{ $group->id }}"
+                                        @if($group->id == $item->group_id) selected @endif>
+                                    {{ $group->id }}. {{ $group->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="tab-pane active">
+                        <label>Преподователи</label>
+                        @foreach($teachers as $teacher)
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="{{"present_students_$teacher->id"}}"
+                                       name="present_teachers[]"
+                                       @if($teacher->selected)checked=""@endif
+                                       value="{{$teacher->id}}">
+                                <label class="form-check-label"
+                                       for="{{"present_teachers_$teacher->id"}}">
+                                    {{$teacher->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="tab-pane active">
+                        <label>Ученики</label>
+                        @foreach($students as $student)
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="{{"present_students_$student->id"}}"
+                                       name="present_students[]"
+                                       @if($student->selected)checked=""@endif
+                                       value="{{$student->id}}">
+                                <label class="form-check-label"
+                                       for="{{"present_students_$student->id"}}">
+                                    {{$student->name}}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
 
 
