@@ -56,4 +56,8 @@ class StudentsLessonsLeftRepository
     {
         return $this->model::destroy($id);
     }
+
+    function decreaseStudentsLessonsLeftCount($studentIds, $lessonTypeId){
+        return true;
+    }
 }

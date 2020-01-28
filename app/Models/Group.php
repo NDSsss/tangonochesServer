@@ -12,6 +12,11 @@ class Group extends Model
         'name',
         'first_lesson_time',
         'second_lesson_time',
+        'ticket_event_type_id',
         'address'
     ];
+
+    public function ticketEventType(){
+        return $this->belongsTo(TicketEventType::class,'ticket_event_type_id', 'id');
+    }
 }

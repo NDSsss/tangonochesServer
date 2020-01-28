@@ -12,6 +12,22 @@ use Illuminate\Database\Eloquent\Model;
 class LessonsRepository extends BaseRepository
 {
     /**
+     * @var StudentsLessonsLeftRepository
+     */
+    private $lessonsLeftRepository;
+
+    /**
+     * LessonsRepository constructor.
+     * @param StudentsLessonsLeftRepository $lessonsLeftRepository
+     */
+    public function __construct(StudentsLessonsLeftRepository $lessonsLeftRepository)
+    {
+        $this->lessonsLeftRepository = $lessonsLeftRepository;
+        parent::__construct();
+    }
+
+
+    /**
      * @return string
      */
     protected function getModelClass()
@@ -75,6 +91,7 @@ class LessonsRepository extends BaseRepository
         $lesson = $this->startConditions()::create($data);
         $teachersResult = $lesson->teachers()->sync($presentTeachers);
         $studentsResult = $lesson->students()->sync($presentStudents);
+//        $lessonsCountChangeResult = $this->lessonsLeftRepository->
         if($lesson && $studentsResult && $teachersResult){
             \DB::commit();
             return $lesson;
