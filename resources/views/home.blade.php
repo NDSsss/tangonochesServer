@@ -21,9 +21,9 @@
                                     <li>
                                         School
                                         <ul>
-                                            <li><a href='{{route('admin.school.students.index')}}'>Teachers</a>
+                                            <li><a href='{{route('admin.school.students.index')}}'>Students</a>
                                             </li>
-                                            <li><a href='{{route('admin.school.teachers.index')}}'>Students</a>
+                                            <li><a href='{{route('admin.school.teachers.index')}}'>Teachers</a>
                                             </li>
                                             <li><a href='{{route('admin.school.groups.index')}}'>Groups</a>
                                             </li>
@@ -34,6 +34,8 @@
                                             <li><a href='{{route('admin.school.lessons.index')}}'>Lessons</a>
                                             </li>
                                             <li><a href='{{route('admin.school.tickets.index')}}'>Tickets</a>
+                                            </li>
+                                            <li><a href='{{route('admin.school.studentsLessonsLeft.index')}}'>studentsLessonsLeft</a>
                                             </li>
                                         </ul>
                                     </li>

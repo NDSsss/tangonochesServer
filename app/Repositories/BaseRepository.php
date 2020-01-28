@@ -58,7 +58,7 @@ abstract class BaseRepository
     }
 
     function createItem():Model{
-        return $this->model::make();
+        return $this->startConditions()::make();
     }
 
     function getAllItems(): Collection

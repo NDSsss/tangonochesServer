@@ -9,13 +9,14 @@ return [
                 'group_prefix' => 'school',
                 'pages' =>
                     [
-                        ['students', 'AdminSchoolStudentsController'],
-                        ['teachers', 'AdminSchoolTeachersController'],
-                        ['groups', 'AdminSchoolGroupsController'],
-                        ['ticketCountTypes', 'AdminSchoolTicketCountTypesController'],
-                        ['ticketEventTypes', 'AdminSchoolTicketEventTypesController'],
-                        ['lessons', 'AdminSchoolLessonsController'],
-                        ['tickets', 'AdminSchoolTicketsController']
+                        ['students', 'AdminSchoolStudentsController'],//0
+                        ['teachers', 'AdminSchoolTeachersController'],//1
+                        ['groups', 'AdminSchoolGroupsController'],//2
+                        ['ticketCountTypes', 'AdminSchoolTicketCountTypesController'],//3
+                        ['ticketEventTypes', 'AdminSchoolTicketEventTypesController'],//4
+                        ['lessons', 'AdminSchoolLessonsController'],//5
+                        ['tickets', 'AdminSchoolTicketsController'],//6
+                        ['studentsLessonsLeft', 'StudentsLessonsLeftController'],//7
                     ]
             ]
         ]

@@ -93,8 +93,26 @@ class LessonsRepository extends BaseRepository
         if (!array_key_exists('present_students', $data)) {
             $data['present_students'] = [];
         }
+        $oldStudentIds = \DB::table('lessons_students')->select(['student_id'])->where('lesson_id','=',$id)->get()->map(function ($value){
+            return $value->student_id;
+        });
+        $newStudentIds = collect($data['present_students'])->map(function ($value){
+            return (int)$value;
+        });
         $presentTeachers = $data['present_teachers'];
         $presentStudents = $data['present_students'];
+        $deletedStudents =[];
+        foreach ($oldStudentIds as $oldStudentId) {
+            if(!$newStudentIds->contains($oldStudentId)){
+                $deletedStudents[]=$oldStudentId;
+            }
+        }
+        $addedStudents =[];
+        foreach ($newStudentIds as $newStudentId) {
+            if(!$oldStudentIds->contains($newStudentId)){
+                $addedStudents[]=$newStudentId;
+            }
+        }
         \DB::beginTransaction();
         $lesson = Lesson::find($id);
         $lessonResult = $lesson->update($data);
