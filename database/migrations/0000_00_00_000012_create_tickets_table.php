@@ -26,7 +26,6 @@ class CreateTicketsTable extends Migration
             $table->boolean('is_in_pair')->default(false);
 
             $table->timestamps();
-            $table->softDeletes();
 
 
             $table->foreign('ticket_count_type_id')->references('id')->on('ticket_count_types');

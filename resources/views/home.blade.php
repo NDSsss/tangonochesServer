@@ -33,6 +33,8 @@
                                             </li>
                                             <li><a href='{{route('admin.school.lessons.index')}}'>Lessons</a>
                                             </li>
+                                            <li><a href='{{route('admin.school.tickets.index')}}'>Tickets</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -43,8 +45,4 @@
             </div>
         </div>
     </div>
-
-{{--    <example-component>--}}
-
-{{--    </example-component>--}}
 @endsection

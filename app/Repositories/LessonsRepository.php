@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Models\Lesson;
 use App\Models\Student;
 use App\Models\Teacher;
+use Illuminate\Database\Eloquent\Model;
 
 class LessonsRepository extends BaseRepository
 {
@@ -60,7 +61,28 @@ class LessonsRepository extends BaseRepository
         return $allTeachers;
     }
 
-    public function updateLesson($id,$data, $presentTeachers, $presentStudents){
+    function storeItem($data): Model
+    {
+        $presentTeachers = $data['present_teachers'];
+        $presentStudents = $data['present_students'];
+        \DB::beginTransaction();
+        $lesson = $this->startConditions()::create($data);
+        $teachersResult = $lesson->teachers()->sync($presentTeachers);
+        $studentsResult = $lesson->students()->sync($presentStudents);
+        if($lesson && $studentsResult && $teachersResult){
+            \DB::commit();
+            return $lesson;
+        } else {
+            \DB::rollBack();
+            return $lesson;
+        }
+    }
+
+
+    public function updateLesson($id,$data){
+
+        $presentTeachers = $data['present_teachers'];
+        $presentStudents = $data['present_students'];
         \DB::beginTransaction();
         $lesson = Lesson::find($id);
         $lessonResult = $lesson->update($data);
@@ -75,4 +97,21 @@ class LessonsRepository extends BaseRepository
             return false;
         }
     }
+
+    function destroyItem($id)
+    {
+        \DB::beginTransaction();
+        $deleteStudentsResult = \DB::table('lessons_students')->where('lesson_id','=',$id)->delete();
+        $deleteTeachersResult = \DB::table('lessons_teachers')->where('lesson_id','=',$id)->delete();
+        $deleteLesson = Lesson::destroy($id);
+        $result = $deleteStudentsResult && $deleteTeachersResult && $deleteLesson;
+        if($result){
+            \DB::commit();
+        } else {
+            \DB::rollBack();
+        }
+        return $result;
+    }
+
+
 }

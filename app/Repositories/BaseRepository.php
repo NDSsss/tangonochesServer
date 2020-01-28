@@ -44,12 +44,17 @@ abstract class BaseRepository
 
     function getAllItemsPaginated(): LengthAwarePaginator
     {
-        return $this->getAllItemsQuery()->paginate($this->getPaginateCount());
+        return $this->getAllItemsWithRelationsQuery()->paginate($this->getPaginateCount());
     }
 
     function getAllItemsQuery(): Builder
     {
         return $this->startConditions()::query()->select($this->getColumnsForSelect());
+    }
+
+    function getAllItemsWithRelationsQuery(): Builder
+    {
+        return $this->getAllItemsQuery();
     }
 
     function createItem():Model{
@@ -66,12 +71,18 @@ abstract class BaseRepository
         return $this->getAllItemsQuery()->where('id', '=', $id)->get()->first();
     }
 
+    function updateItem($data, $id){
+        $group = $this->getItemById($id);
+        $result = $group->update($data);
+        return $result;
+    }
+
     function storeItem($data): Model
     {
         return $this->startConditions()::create($data);
     }
 
-    function destroyItem($id): int
+    function destroyItem($id)
     {
         return $this->model::destroy($id);
     }

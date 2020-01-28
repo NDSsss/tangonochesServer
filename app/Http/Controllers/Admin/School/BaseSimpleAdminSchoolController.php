@@ -12,7 +12,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
      * @var BaseRepository
      */
     protected $repository;
-    protected $currentPath;
+    public $currentPath;
 
     /**
      * BaseSimpleAdminSchoolController constructor.
@@ -38,7 +38,6 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
     public function index()
     {
         $paginator = $this->repository->getAllItemsPaginated();
-
         return view($this->currentPath . '.index', compact('paginator'));
     }
 
@@ -111,12 +110,11 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
         $group = $this->repository->getItemById($id);
         if (empty($group)) {
             return back()
-                ->withErrors(['msg' => "Преподователь с id={$id} не найден"])
+                ->withErrors(['msg' => "Запись с id={$id} не найден"])
                 ->withInput();
         }
-
         $data = $request->all();
-        $result = $group->update($data);
+        $result = $this->repository->updateItem($data, $id);
         if ($result) {
             return redirect()
                 ->route($this->currentPath . '.edit', $group->id)
