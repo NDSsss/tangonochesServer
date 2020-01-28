@@ -63,6 +63,12 @@ class LessonsRepository extends BaseRepository
 
     function storeItem($data): Model
     {
+        if (!array_key_exists('present_teachers', $data)) {
+            $data['present_teachers'] = [];
+        }
+        if (!array_key_exists('present_students', $data)) {
+            $data['present_students'] = [];
+        }
         $presentTeachers = $data['present_teachers'];
         $presentStudents = $data['present_students'];
         \DB::beginTransaction();
@@ -81,6 +87,12 @@ class LessonsRepository extends BaseRepository
 
     public function updateLesson($id,$data){
 
+        if (!array_key_exists('present_teachers', $data)) {
+            $data['present_teachers'] = [];
+        }
+        if (!array_key_exists('present_students', $data)) {
+            $data['present_students'] = [];
+        }
         $presentTeachers = $data['present_teachers'];
         $presentStudents = $data['present_students'];
         \DB::beginTransaction();

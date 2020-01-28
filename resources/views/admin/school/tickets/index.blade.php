@@ -40,7 +40,7 @@
                                 @foreach($paginator as $item)
                                     <tr>
                                         <td><a href="{{route("$currentRoute.edit",$item->id)}}">{{$item->id}}</a></td>
-                                        <td>{{$item->student->name}}</td>
+                                        <td><a href="{{route("$currentRoute.edit",$item->id)}}">{{$item->student->name}}</a></td>
                                         <td>{{$item->teacher->name}}</td>
                                         <td>{{$item->ticket_bought_date}}</td>
                                         <td>{{$item->ticket_start_date}}</td>
