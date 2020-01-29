@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\School;
 use App\Models\Item;
 use App\Repositories\GroupsRepository;
 use App\Repositories\TicketEventTypesRepository;
+use Illuminate\Http\Request;
 
 class AdminSchoolGroupsController extends BaseSimpleAdminSchoolController
 {
@@ -13,6 +14,7 @@ class AdminSchoolGroupsController extends BaseSimpleAdminSchoolController
      * @var TicketEventTypesRepository
      */
     private $ticketEventTypesRepository;
+
     /**
      * AdminSchoolGroupsController constructor.
      * @param GroupsRepository $groupsRepository
@@ -33,6 +35,12 @@ class AdminSchoolGroupsController extends BaseSimpleAdminSchoolController
     }
 
 
+    public function store(Request $request)
+    {
+        return parent::baseStore($request);
+    }
+
+
     public function edit($id)
     {
         $item = $this->repository->getItemById($id);
@@ -41,6 +49,12 @@ class AdminSchoolGroupsController extends BaseSimpleAdminSchoolController
         }
         $allEventTypes = $this->ticketEventTypesRepository->getAllItems();
         return view($this->currentPath . '.edit', compact('item', 'allEventTypes'));
+    }
+
+
+    protected function update(Request $request, $id)
+    {
+        return parent::baseUpdate($request, $id);
     }
 
 

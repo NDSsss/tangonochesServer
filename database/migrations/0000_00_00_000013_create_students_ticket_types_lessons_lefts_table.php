@@ -18,9 +18,11 @@ class CreateStudentsTicketTypesLessonsLeftsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('ticket_event_type_id');
+            $table->unsignedBigInteger('ticket_id')->default(1);
             $table->integer('lessons_left');
 
             $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('ticket_id')->references('id')->on('tickets');
             $table->foreign('ticket_event_type_id')->references('id')->on('ticket_event_types');
             $table->timestamps();
         });

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin\School;
 
-use App\Http\Controllers\Controller;
-use App\Models\Student;
 use App\Repositories\StudentsRepository;
 use Illuminate\Http\Request;
 
@@ -18,5 +16,15 @@ class AdminSchoolStudentsController extends BaseSimpleAdminSchoolController
     {
         parent::__construct(0);
         $this->repository = $studentsRepository;
+    }
+
+    public function store(Request $request)
+    {
+        return parent::baseStore($request);
+    }
+
+    protected function update(Request $request, $id)
+    {
+        return parent::baseUpdate($request, $id);
     }
 }

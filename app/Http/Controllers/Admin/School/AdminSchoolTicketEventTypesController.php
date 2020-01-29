@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin\School;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\TicketCountTypesRepository;
 use App\Repositories\TicketEventTypesRepository;
 use Illuminate\Http\Request;
 
@@ -18,5 +16,15 @@ class AdminSchoolTicketEventTypesController extends BaseSimpleAdminSchoolControl
     {
         parent::__construct(4);
         $this->repository = $groupsRepository;
+    }
+
+    public function store(Request $request)
+    {
+        return parent::baseStore($request);
+    }
+
+    protected function update(Request $request, $id)
+    {
+        return parent::baseUpdate($request, $id);
     }
 }

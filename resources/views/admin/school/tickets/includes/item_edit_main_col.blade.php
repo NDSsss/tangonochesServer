@@ -51,10 +51,13 @@
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
                             <label for="ticket_bought_date">Когда</label>
-                            <input name="ticket_bought_date" value="{{$item->ticket_bought_date}}"
+                            {{--TODO:Fix date format}}
+{{--                            <input name="ticket_bought_date" value="{{dd($item->ticket_bought_date->format('Y-m-dTH:i:s'))}}"--}}
+                            <input name="ticket_bought_date"
+                                   value="{{$item->ticket_bought_date->format('Y-m-d')}}T{{$item->ticket_bought_date->format('H:i:s')}}"
+                                   {{--                            <input name="ticket_bought_date" value="2011-08-19T13:45:00"--}}
                                    id="ticket_bought_date"
-                                   type="text"
-                                   :disabled="1"
+                                   type="datetime-local"
                                    class="form-control">
                         </div>
                     </div>
@@ -62,9 +65,9 @@
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
                             <label for="ticket_start_date">Начало</label>
-                            <input name="ticket_start_date" value="{{$item->ticket_start_date}}"
+                            <input name="ticket_start_date" value="{{$item->ticket_start_date->format('Y-m-d')}}"
                                    id="ticket_start_date"
-                                   type="text"
+                                   type="date"
                                    class="form-control">
                         </div>
                     </div>
@@ -72,9 +75,9 @@
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
                             <label for="ticket_end_date">Конец</label>
-                            <input name="ticket_end_date" value="{{$item->ticket_end_date}}"
+                            <input name="ticket_end_date" value="{{$item->ticket_end_date->format('Y-m-d')}}"
                                    id="ticket_end_date"
-                                   type="text"
+                                   type="date"
                                    class="form-control">
                         </div>
                     </div>
@@ -102,7 +105,7 @@
                                 required>
                             @foreach($allEventTypes as $currentItem)
                                 <option value="{{ $currentItem->id }}"
-                                        @if($currentItem->id == $item->ticket_count_type_id) selected @endif>
+                                        @if($currentItem->id == $item->ticket_event_type_id) selected @endif>
                                     {{ $currentItem->name }}
                                 </option>
                             @endforeach
@@ -120,6 +123,29 @@
                                for="is_in_pair">
                             Парный
                         </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="is_nullify"
+                               name="is_nullify"
+                               @if($item->is_nullify)checked="" @endif
+                               value=0>
+                        <label class="form-check-label"
+                               for="is_nullify">
+                            Обнулять существующий сетчик уроков
+                        </label>
+                    </div>
+
+                    <div class="tab-pane active" id="maindata" role="tabpanel">
+                        <div class="form-group">
+                            <label for="extra_lessons">Корректировка количества уроков</label>
+                            <input name="extra_lessons" value="{{$item->extra_lessons}}"
+                                   id="extra_lessons"
+                                   type="number"
+                                   class="form-control">
+                        </div>
                     </div>
 
                 </div>

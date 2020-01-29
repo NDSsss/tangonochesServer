@@ -4,7 +4,6 @@
 namespace App\Repositories;
 
 
-use App\Models\Group;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -49,7 +48,7 @@ abstract class BaseRepository
 
     function getAllItemsQuery(): Builder
     {
-        return $this->startConditions()::query()->select($this->getColumnsForSelect());
+        return $this->startConditions()::query()->select();
     }
 
     function getAllItemsWithRelationsQuery(): Builder
@@ -57,7 +56,8 @@ abstract class BaseRepository
         return $this->getAllItemsQuery();
     }
 
-    function createItem():Model{
+    function createItem(): Model
+    {
         return $this->startConditions()::make();
     }
 
@@ -71,7 +71,9 @@ abstract class BaseRepository
         return $this->getAllItemsQuery()->where('id', '=', $id)->get()->first();
     }
 
-    function updateItem($data, $id){
+    function updateItem($data, $id)
+    {
+        \Log::debug('BaseRepository updating');
         $group = $this->getItemById($id);
         $result = $group->update($data);
         return $result;
@@ -79,7 +81,9 @@ abstract class BaseRepository
 
     function storeItem($data): Model
     {
-        return $this->startConditions()::create($data);
+        \Log::debug('BaseRepository creating');
+        $item = $this->startConditions()::create($data);
+        return $item;
     }
 
     function destroyItem($id)

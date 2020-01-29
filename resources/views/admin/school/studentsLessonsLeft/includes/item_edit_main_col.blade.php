@@ -58,7 +58,27 @@
                                    required>
                         </div>
                     </div>
+
+                    <div class="tab-pane active" id="maindata" role="tabpanel">
+                        <div class="form-group">
+                            @php
+                                $tmpadminConfig = config('global.admin_routes');
+                                $tmpadminPath = $tmpadminConfig['prefix'];
+                                $tmpgroup = $tmpadminConfig['global_groups'][0];
+                                $tmpgroupPath = $tmpgroup['group_prefix'];
+                                $tmppagePath = $tmpgroup['pages'][6][0];
+                                $tmpcurrentRoute = "$tmpadminPath.$tmpgroupPath.$tmppagePath";
+                            @endphp
+                            <label for="ticket_id"><a href="{{route("$tmpcurrentRoute.edit",$item->ticket_id)}}">Абонимент</a></label>
+                            <input name="ticket_id" value="{{$item->ticket_id}}"
+                                   id="ticket_id"
+                                   type="number"
+                                   class="form-control"
+                                   required>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

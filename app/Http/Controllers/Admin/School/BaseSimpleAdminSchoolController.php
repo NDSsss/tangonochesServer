@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\School;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 
@@ -59,7 +58,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    protected function baseStore(Request $request)
     {
         $group = $this->repository->storeItem($request->input());
         if ($group) {
@@ -105,7 +104,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    protected function baseUpdate(Request $request, $id)
     {
         $group = $this->repository->getItemById($id);
         if (empty($group)) {

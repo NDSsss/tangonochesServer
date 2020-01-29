@@ -16,14 +16,16 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamp('ticket_start_date');
-            $table->timestamp('ticket_end_date')->nullable();
+            $table->date('ticket_start_date');
+            $table->date('ticket_end_date')->nullable();
             $table->timestamp('ticket_bought_date')->useCurrent();
-            $table->unsignedBigInteger('ticket_count_type_id');
-            $table->unsignedBigInteger('ticket_event_type_id');
+            $table->unsignedBigInteger('ticket_count_type_id')->default(1);
+            $table->unsignedBigInteger('ticket_event_type_id')->default(1);
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('teacher_id');
             $table->boolean('is_in_pair')->default(false);
+            $table->boolean('is_nullify')->default(true);
+            $table->integer('extra_lessons')->default(0);
 
             $table->timestamps();
 
