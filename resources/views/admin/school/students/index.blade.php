@@ -30,8 +30,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if(!empty($paginator))
-                                @foreach($paginator as $student)
+                            @if(!empty($items))
+                                @foreach($items as $student)
                                     @php
                                     /** @var \App\Models\Student $student */
                                     @endphp
@@ -49,17 +49,17 @@
                 </div>
             </div>
         </div>
-        @if($paginator->total() > $paginator->count())
-            <br>
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            {{ $paginator->links() }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
+{{--        @if($paginator->total() > $paginator->count())--}}
+{{--            <br>--}}
+{{--            <div class="row justify-content-center">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body">--}}
+{{--                            {{ $paginator->links() }}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        @endif--}}
     </div>
 @endsection

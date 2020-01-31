@@ -18,6 +18,13 @@ class AdminSchoolStudentsController extends BaseSimpleAdminSchoolController
         $this->repository = $studentsRepository;
     }
 
+    public function index()
+    {
+        $items = $this->repository->getAllItems();
+        return view($this->currentPath . '.index', compact('items'));
+    }
+
+
     public function store(Request $request)
     {
         return parent::baseStore($request);

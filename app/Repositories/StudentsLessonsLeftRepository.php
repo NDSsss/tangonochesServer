@@ -149,9 +149,9 @@ class StudentsLessonsLeftRepository
             $foundItem = $found->first();
             \Log::debug("registerTicket foundItem $foundItem");
             if ($ticket->is_nullify) {
-                $foundItem->lessons_left = $ticket->ticketCountType->lessons_count;
+                $foundItem->lessons_left = $ticket->ticketCountType->lessons_count + $ticket->extra_lessons;
             } else {
-                $foundItem->lessons_left = $ticket->ticketCountType->lessons_count + $foundItem->lessons_left;
+                $foundItem->lessons_left = $ticket->ticketCountType->lessons_count + $foundItem->lessons_left + $ticket->extra_lessons;
             }
             $foundItem->save();
             return $foundItem->id;

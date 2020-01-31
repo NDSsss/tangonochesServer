@@ -20,7 +20,7 @@ class CreateEventAnnouncesTable extends Migration
             $table->timestamp('end_date')->nullable();
             $table->string('address')->nullable();
             $table->string('extra_info')->nullable();
-            $table->string('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
 
             $table->timestamps();
             $table->softDeletes();

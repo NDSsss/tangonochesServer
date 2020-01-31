@@ -17,6 +17,8 @@ return [
                         ['lessons', 'AdminSchoolLessonsController'],//5
                         ['tickets', 'AdminSchoolTicketsController'],//6
                         ['studentsLessonsLeft', 'StudentsLessonsLeftController'],//7
+                        ['lessonAnnounces', 'AdminSchoolLessonAnnouncesController'],//8
+                        ['eventAnnounces', 'AdminSchoolEventAnnouncesController'],//9
                     ]
             ]
         ]

@@ -37,6 +37,10 @@
                                             </li>
                                             <li><a href='{{route('admin.school.studentsLessonsLeft.index')}}'>studentsLessonsLeft</a>
                                             </li>
+                                            <li><a href='{{route('admin.school.eventAnnounces.index')}}'>eventAnnounce</a>
+                                            </li>
+                                            <li><a href='{{route('admin.school.lessonAnnounces.index')}}'>lessonAnnounces</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>

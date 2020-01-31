@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Models\Student;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class StudentsRepository extends BaseRepository
 {
@@ -29,4 +30,6 @@ class StudentsRepository extends BaseRepository
     {
         return 10;
     }
+
+
 }

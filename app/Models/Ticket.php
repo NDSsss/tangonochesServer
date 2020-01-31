@@ -18,7 +18,6 @@ class Ticket extends Model
         'is_in_pair' => false,
         'is_nullify' => true,
         'extra_lessons' => 0,
-        'ticket_start_date' => '2019-11-06',
     ];
 
     protected $fillable = [
