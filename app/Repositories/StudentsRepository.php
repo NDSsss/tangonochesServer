@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Models\Student;
+use App\Models\StudentsTicketTypesLessonsLeft;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class StudentsRepository extends BaseRepository
@@ -31,5 +32,13 @@ class StudentsRepository extends BaseRepository
         return 10;
     }
 
+    public function getStudentByBarcodeId($barcodeId){
+        $result =  $this->startConditions()->newQuery()->select()
+            ->where('barcode_id','=',$barcodeId)
+            ->with('lessonsLeft')
+            ->get();
+        return $result->first();
+
+    }
 
 }

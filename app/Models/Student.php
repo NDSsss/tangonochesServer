@@ -36,4 +36,8 @@ class Student extends Model
         'push_token',
         'barcode_id',
     ];
+
+    public function lessonsLeft(){
+        return $this->hasMany(StudentsTicketTypesLessonsLeft::class, 'student_id', 'id');
+    }
 }

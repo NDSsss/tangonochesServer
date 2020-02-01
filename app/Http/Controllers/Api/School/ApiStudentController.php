@@ -15,11 +15,8 @@ class ApiStudentController extends BaseApiController
 {
     public function getStudentByTicketId(ApiGetStudentRequest $request){
         $studentsRepository = app(StudentsRepository::class);
-        $studentsLessonsLeftRepository = app(StudentsLessonsLeftRepository::class);
-        $studentId = (int)$request->input('barcode_id');
-        $student = $studentsRepository->getItemById($studentId);
-        $tickets = $studentsLessonsLeftRepository->getAllTicketsForStudent($studentId)->get();
-//        dd($tickets);
-        return StudentTicketsResource::collection($tickets);
+        $barcodeId = (int)$request->input('barcode_id');
+        $student = $studentsRepository->getStudentByBarcodeId($barcodeId);
+        return StudentTicketsResource::collection($student->lessonsLeft);
     }
 }
