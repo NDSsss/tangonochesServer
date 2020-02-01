@@ -25,7 +25,7 @@ class StudentsLessonsLeftRepository
 
     public function getAllItemsPaginated()
     {
-        return $this->getAllItems()->paginate(10);
+        return $this->getAllItems()->get();
     }
 
     public function getAllItems()
