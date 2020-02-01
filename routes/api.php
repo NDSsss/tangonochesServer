@@ -20,6 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['namespace'=>'vk','prefix'=>'vk'], function (){
    Route::post('/','VkApiController@postRequest');
 });
+Route::group(['namespace'=>'Api'], function (){
+   Route::get('/student','School\ApiStudentController@getStudentByTicketId');
+});
 
 Route::get('deploy',function (){
    Artisan::call('git:deploy');

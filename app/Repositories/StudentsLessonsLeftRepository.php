@@ -30,7 +30,11 @@ class StudentsLessonsLeftRepository
 
     public function getAllItems()
     {
-        return $this->startConditions()::query()->select()->with(['student:id,name', 'ticketEventType:id,name'])->orderByDesc('id');
+        return $this->startConditions()::query()->select()->with(['student:id,name', 'ticketEventType:id,name', 'ticket'])->orderByDesc('id');
+    }
+
+    public function getAllTicketsForStudent(int $studentId){
+        return $this->startConditions()::query()->where('student_id','=',$studentId)->select()->with(['ticket'])->orderByDesc('id');
     }
 
     private function startConditions()
