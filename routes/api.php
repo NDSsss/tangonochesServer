@@ -24,6 +24,7 @@ Route::group(['namespace'=>'Api'], function (){
    Route::get('/student','School\ApiStudentController@getStudentByTicketId');
    Route::get('/lessonAnnounces','School\ApiAnnouncesController@lessonAnnounces');
    Route::get('/eventAnnounces','School\ApiAnnouncesController@eventAnnounces');
+   Route::get('/allStudents','School\ApiTeacherController@getAllStudents');
 });
 
 Route::get('deploy',function (){
