@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Models\LessonAnnounce;
+use Illuminate\Database\Eloquent\Builder;
 
 class LessonAnnouncesRepository extends BaseRepository
 {
@@ -24,5 +25,16 @@ class LessonAnnouncesRepository extends BaseRepository
     protected function getPaginateCount(): int
     {
         return 10;
+    }
+
+    function getAllItemsWithRelationsQuery(): Builder
+    {
+        return $this->getAllItemsQuery()->with('group:id,name');
+    }
+
+
+    public function getAllEvents(){
+        $activeLessonAnnounces = $this->getAllItemsWithRelationsQuery()->where('is_active','=', true)->get();
+        return $activeLessonAnnounces;
     }
 }

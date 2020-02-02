@@ -22,6 +22,8 @@ Route::group(['namespace'=>'vk','prefix'=>'vk'], function (){
 });
 Route::group(['namespace'=>'Api'], function (){
    Route::get('/student','School\ApiStudentController@getStudentByTicketId');
+   Route::get('/lessonAnnounces','School\ApiAnnouncesController@lessonAnnounces');
+   Route::get('/eventAnnounces','School\ApiAnnouncesController@eventAnnounces');
 });
 
 Route::get('deploy',function (){

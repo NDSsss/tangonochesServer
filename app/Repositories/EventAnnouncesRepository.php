@@ -25,4 +25,9 @@ class EventAnnouncesRepository extends BaseRepository
     {
         return 10;
     }
+
+    public function getAllAnnounces(){
+        $allAnnounces = $this->getAllItemsQuery()->where('is_active','=', true)->get();
+        return $allAnnounces;
+    }
 }
