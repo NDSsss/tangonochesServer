@@ -59,6 +59,10 @@ class Ticket extends Model
         parent::__construct($attributes);
     }
 
+    public function studentsTicketTypesLessonsLeft(){
+        return $this->hasOne(StudentsTicketTypesLessonsLeft::class,'ticket_id', 'id');
+    }
+
 
     public function student()
     {

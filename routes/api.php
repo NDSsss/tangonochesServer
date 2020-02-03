@@ -25,6 +25,12 @@ Route::group(['namespace'=>'Api'], function (){
    Route::get('/lessonAnnounces','School\ApiAnnouncesController@lessonAnnounces');
    Route::get('/eventAnnounces','School\ApiAnnouncesController@eventAnnounces');
    Route::get('/allStudents','School\ApiTeacherController@getAllStudents');
+   Route::get('/initData','School\ApiTeacherController@getInitData');
+   Route::post('/registerLesson','School\ApiTeacherController@registerLesson');
+   Route::post('/updateLesson','School\ApiTeacherController@updateLesson');
+   Route::post('/deleteLesson','School\ApiTeacherController@deleteLesson');
+   Route::post('/registerTicket','School\ApiTeacherController@registerTicket');
+   Route::post('/deleteTicket','School\ApiTeacherController@deleteTicket');
 });
 
 Route::get('deploy',function (){

@@ -10,8 +10,8 @@ class TicketObserver
 
     public function creating(Ticket $ticket)
     {
-        \Log::debug("creating ticket original $ticket");
-        \Log::debug("creating ticket new $ticket");
+        $ticketLog = json_encode($ticket);
+        \Log::debug("creating ticket new $ticketLog");
         $lessonsLeftRepository = app(StudentsLessonsLeftRepository::class);
         $result = $lessonsLeftRepository->registerTicket($ticket);
         return $result > -1;

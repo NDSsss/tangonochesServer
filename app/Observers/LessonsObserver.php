@@ -24,7 +24,10 @@ class LessonsObserver
 
     public function updating(Lesson $lesson)
     {
-        \Log::debug("Lesson updating $lesson dirty {$lesson->getDirty()}");
+        $lessonLog = json_encode($lesson);
+        $originalLessonLog = json_encode($lesson->getOriginal());
+        $dirtyLog = json_encode($lesson->getDirty());
+        \Log::debug("Lesson updating original $originalLessonLog new $lessonLog dirty $dirtyLog");
     }
 
     /**

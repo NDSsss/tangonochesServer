@@ -18,8 +18,6 @@ class CreateTicketCountTypesTable extends Migration
             $table->string('name')->unique();
             $table->double('price');
             $table->integer('lessons_count');
-            $table->boolean('is_in_pair')->default(false);
-            $table->timestamps();
         });
     }
 

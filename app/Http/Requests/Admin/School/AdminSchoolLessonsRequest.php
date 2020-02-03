@@ -24,7 +24,8 @@ class AdminSchoolLessonsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required',
+            'group_id'=>'required|exists:groups,id',
         ];
     }
 

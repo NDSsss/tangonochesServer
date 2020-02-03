@@ -104,7 +104,7 @@ class LessonsRepository extends BaseRepository
         $this->lessonsLeftRepository->decreaseStudentsLessonsLeftCount($studentIds, $eventType);
         if ($saveResult) {
             \DB::commit();
-            return $lesson;
+            return $lesson->refresh();
         } else {
             \DB::rollBack();
             return null;
@@ -114,7 +114,11 @@ class LessonsRepository extends BaseRepository
 
     public function updateLesson($id, $data)
     {
-        \Log::debug("LessonsRepository pre updateLesson id $id ");
+        $lesson = $this->startConditions()::find($id);
+//        dd($data['group_id'], $lesson->group_id);
+        $dataLog = json_encode($data);
+        \Log::debug("LessonsRepository pre updateLesson with data $dataLog id $id lesson $lesson");
+
 
         $oldStudentIds = \DB::table('lessons_students')->select(['student_id'])->where('lesson_id', '=', $id)->get()->map(function ($value) {
             return $value->student_id;
@@ -126,36 +130,48 @@ class LessonsRepository extends BaseRepository
         $presentTeachers = $data['present_teachers'];
         $presentStudents = $data['present_students'];
 
-        $deletedStudents = [];
-        foreach ($oldStudentIds as $oldStudentId) {
-            if (!$newStudentIds->contains($oldStudentId)) {
-                $deletedStudents[] = $oldStudentId;
-            }
-        }
-
-        $addedStudents = [];
-        foreach ($newStudentIds as $newStudentId) {
-            if (!$oldStudentIds->contains($newStudentId)) {
-                $addedStudents[] = $newStudentId;
-            }
-        }
-
-        $deletedStudentsLog = json_encode($deletedStudents);
-        $deletedStudentsEmptyLog = json_encode(count($deletedStudents) > 0);
-        $addedStudentsLog = json_encode($addedStudents);
-        $addedStudentsEmptyLog = json_encode(count($addedStudents) > 0);
-        \Log::debug("LessonsRepository updatingLesson deletedStudentsLog $deletedStudentsLog is empty $deletedStudentsEmptyLog  addedStudentsLog $addedStudentsLog is empty $addedStudentsEmptyLog");
+        $groupsRepository = app(GroupsRepository::class);
+        $oldGroup = $groupsRepository->getItemById($lesson->group_id);
+        $newGroup = $groupsRepository->getItemById($data['group_id']);
 
         \DB::beginTransaction();
-
-        $lesson = $this->startConditions()::find($id);
-
-        if (count($deletedStudents) > 0) {
-            $this->lessonsLeftRepository->increaseStudentsLessonsLeftCount($deletedStudents, $lesson->group->ticket_event_type_id);
+        if (count($oldStudentIds) > 0) {
+            $this->lessonsLeftRepository->increaseStudentsLessonsLeftCount($oldStudentIds, $oldGroup->ticket_event_type_id);
         }
-        if (count($addedStudents) > 0) {
-            $this->lessonsLeftRepository->decreaseStudentsLessonsLeftCount($addedStudents, $lesson->group->ticket_event_type_id);
+        if (count($newStudentIds) > 0) {
+            $this->lessonsLeftRepository->decreaseStudentsLessonsLeftCount($newStudentIds, $newGroup->ticket_event_type_id);
         }
+
+//        if ($oldGroup->ticket_event_type_id != $newGroup->ticket_event_type_id) {
+//
+//        } else {
+//            $deletedStudents = [];
+//            foreach ($oldStudentIds as $oldStudentId) {
+//                if (!$newStudentIds->contains($oldStudentId)) {
+//                    $deletedStudents[] = $oldStudentId;
+//                }
+//            }
+//
+//            $addedStudents = [];
+//            foreach ($newStudentIds as $newStudentId) {
+//                if (!$oldStudentIds->contains($newStudentId)) {
+//                    $addedStudents[] = $newStudentId;
+//                }
+//            }
+//
+//            $deletedStudentsLog = json_encode($deletedStudents);
+//            $deletedStudentsEmptyLog = json_encode(count($deletedStudents) > 0);
+//            $addedStudentsLog = json_encode($addedStudents);
+//            $addedStudentsEmptyLog = json_encode(count($addedStudents) > 0);
+//            \Log::debug("LessonsRepository updatingLesson deletedStudentsLog $deletedStudentsLog is empty $deletedStudentsEmptyLog  addedStudentsLog $addedStudentsLog is empty $addedStudentsEmptyLog");
+//
+//            if (count($deletedStudents) > 0) {
+//                $this->lessonsLeftRepository->increaseStudentsLessonsLeftCount($deletedStudents, $lesson->group->ticket_event_type_id);
+//            }
+//            if (count($addedStudents) > 0) {
+//                $this->lessonsLeftRepository->decreaseStudentsLessonsLeftCount($addedStudents, $lesson->group->ticket_event_type_id);
+//            }
+//        }
 
         $lessonResult = $lesson->update($data);
         $teachersResult = $lesson->teachers()->sync($presentTeachers);
@@ -163,7 +179,8 @@ class LessonsRepository extends BaseRepository
 
         if ($lessonResult && $studentsResult && $teachersResult) {
             \DB::commit();
-            return true;
+//            dd($lesson,$lesson->);
+            return $lesson->refresh();
         } else {
             \DB::rollBack();
             return false;
