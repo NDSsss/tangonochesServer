@@ -41,6 +41,7 @@ class StudentsLessonsLeftController extends BaseAdminSchoolController
         $this->studentsLessonsLeftRepository = $studentsLessonsLeftRepository;
         $this->studentsRepository = $studentsRepository;
         $this->ticketEventTypeRepository = $ticketEventTypeRepository;
+        parent::__construct();
     }
 
 

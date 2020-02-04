@@ -25,7 +25,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
         $groupPath = $group['group_prefix'];
         $pagePath = $group['pages'][$numberInPages][0];
         $this->currentPath = "$adminPath.$groupPath.$pagePath";
-
+        parent::__construct();
     }
 
 

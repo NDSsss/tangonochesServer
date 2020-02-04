@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Lesson;
+use Illuminate\Support\Facades\Auth;
 
 class LessonsObserver
 {
@@ -19,7 +20,8 @@ class LessonsObserver
      */
     public function created(Lesson $lesson)
     {
-        \Log::debug("Lesson created $lesson");
+        $name = Auth::user()->name;
+        \Log::debug("Lesson created by $name $lesson");
     }
 
     public function updating(Lesson $lesson)

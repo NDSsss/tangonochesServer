@@ -17,6 +17,10 @@ class CreateTeachersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->unsignedBigInteger('default_teacher_id');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
 
             $table->timestamps();
             $table->softDeletes();

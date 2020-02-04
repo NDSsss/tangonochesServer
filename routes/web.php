@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/admin', function () {
+    return view('admin');
+})->middleware(['auth'])->name('admin');
+
 Route::group(['namespace' => 'School', 'prefix' => 'school'], function () {
     Route::resource('teachers', 'TeacherController')->names('school.teachers');
 });

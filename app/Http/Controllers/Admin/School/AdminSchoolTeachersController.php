@@ -25,6 +25,7 @@ class AdminSchoolTeachersController extends BaseAdminSchoolController
     public function __construct(TeachersRepository $teachersRepository)
     {
         $this->repository = $teachersRepository;
+        parent::__construct();
     }
 
 
