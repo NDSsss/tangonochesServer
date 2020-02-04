@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\School;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherCreateRequest extends FormRequest
 {
@@ -27,4 +28,15 @@ class TeacherCreateRequest extends FormRequest
             'name'=>'required|min:3|max:200'
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        if($this->has('password')) {
+            $this->merge([
+                'password'=>Hash::make($this->password)
+            ]);
+        }
+    }
+
+
 }
