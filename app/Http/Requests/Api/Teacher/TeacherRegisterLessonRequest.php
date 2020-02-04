@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Teacher;
 
 use App\Http\Requests\Api\BaseApiRequest;
 
-class TeacherRegisterLessonRequest extends BaseApiRequest
+class TeacherRegisterLessonRequest extends BaseApiTeacherRequest
 {
 
     /**

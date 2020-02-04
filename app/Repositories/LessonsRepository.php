@@ -120,9 +120,7 @@ class LessonsRepository extends BaseRepository
         \Log::debug("LessonsRepository pre updateLesson with data $dataLog id $id lesson $lesson");
 
 
-        $oldStudentIds = \DB::table('lessons_students')->select(['student_id'])->where('lesson_id', '=', $id)->get()->map(function ($value) {
-            return $value->student_id;
-        });
+        $oldStudentIds = $this->getStudentIdsOfLesson($id);
         $newStudentIds = collect($data['present_students'])->map(function ($value) {
             return (int)$value;
         });
@@ -185,6 +183,18 @@ class LessonsRepository extends BaseRepository
             \DB::rollBack();
             return false;
         }
+    }
+
+    public function getTeacherIdsOfLesson($id){
+        return \DB::table('lessons_teachers')->select(['teacher_id'])->where('lesson_id', '=', $id)->get()->map(function ($value) {
+            return $value->teacher_id;
+        });
+    }
+
+    public function getStudentIdsOfLesson($id){
+        return \DB::table('lessons_students')->select(['student_id'])->where('lesson_id', '=', $id)->get()->map(function ($value) {
+            return $value->student_id;
+        });
     }
 
     function destroyItem($id)

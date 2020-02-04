@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api\Teacher;
 use App\Http\Requests\Api\BaseApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TeacherUpdateLessonRequest extends BaseApiRequest
+class TeacherUpdateLessonRequest extends BaseApiTeacherRequest
 {
 
     /**

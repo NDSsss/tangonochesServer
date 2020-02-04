@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Api\School;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\School\AdminSchoolLessonsRequest;
+use App\Http\Requests\Api\Teacher\GetTokenRequest;
 use App\Http\Requests\Api\Teacher\TeacherBaseDeleteRequest;
 use App\Http\Requests\Api\Teacher\TeacherRegisterLessonRequest;
 use App\Http\Requests\Api\Teacher\TeacherRegisterTicketRequest;
 use App\Http\Requests\Api\Teacher\TeacherUpdateLessonRequest;
 use App\Http\Resources\Api\Teacher\ApiStudentResource;
 use App\Http\Resources\Api\teacher\ApiTeacherGroupResource;
+use App\Http\Resources\Api\Teacher\ApiTeacherLessonRessource;
 use App\Http\Resources\Api\teacher\ApiTeacherTeacherResource;
+use App\Http\Resources\Api\Teacher\ApiTeacherTicketResource;
 use App\Http\Resources\School\TicketCountTypeResource;
 use App\Http\Resources\School\TicketEventTypeResource;
 use App\Repositories\GroupsRepository;
@@ -25,13 +28,15 @@ use Illuminate\Http\Response;
 
 class ApiTeacherController extends Controller
 {
-    public function getAllStudents(){
+    public function getAllStudents()
+    {
         $studentsRepository = app(StudentsRepository::class);
         $students = $studentsRepository->getAllItems();
         return ApiStudentResource::collection($students);
     }
 
-    public function getInitData(){
+    public function getInitData()
+    {
         //Students
         $studentsRepository = app(StudentsRepository::class);
         $students = $studentsRepository->getAllItems();
@@ -49,59 +54,76 @@ class ApiTeacherController extends Controller
         $ticketCountTypes = $ticketCountTypesRepository->getAllItems();
 
         $result = [
-          'students'=>ApiStudentResource::collection($students),
-          'teachers'=>ApiTeacherTeacherResource::collection($teachers),
-          'groups'=>ApiTeacherGroupResource::collection($groups),
-          'ticketEventTypes'=>TicketEventTypeResource::collection($ticketEventTypes),
-          'ticketCountTypes'=>TicketCountTypeResource::collection($ticketCountTypes),
+            'students' => ApiStudentResource::collection($students),
+            'teachers' => ApiTeacherTeacherResource::collection($teachers),
+            'groups' => ApiTeacherGroupResource::collection($groups),
+            'ticketEventTypes' => TicketEventTypeResource::collection($ticketEventTypes),
+            'ticketCountTypes' => TicketCountTypeResource::collection($ticketCountTypes),
         ];
         return json_encode($result);
     }
 
-    public function registerLesson(TeacherRegisterLessonRequest $request){
+    public function registerLesson(TeacherRegisterLessonRequest $request)
+    {
 //        dd($request);
         $lessonsRepository = app(LessonsRepository::class);
         $result = $lessonsRepository->storeItem($request->input());
         return Response::create($result);
     }
 
-    public function updateLesson(TeacherUpdateLessonRequest $request){
+    public function updateLesson(TeacherUpdateLessonRequest $request)
+    {
         $lessonsRepository = app(LessonsRepository::class);
-        $result = $lessonsRepository->updateLesson($request->input('id'),$request->input());
+        $result = $lessonsRepository->updateLesson($request->input('id'), $request->input());
         if ($result) {
             return Response::create($result);
         } else {
-            return Response::create(['error'=>true],400);
+            return Response::create(['error' => true], 400);
         }
     }
 
-    public function deleteLesson(TeacherBaseDeleteRequest $request){
+    public function deleteLesson(TeacherBaseDeleteRequest $request)
+    {
         $lessonsRepository = app(LessonsRepository::class);
         $result = $lessonsRepository->destroyItem($request->input('id'));
-        if ($result){
-            return Response::create(['error'=>false]);
+        if ($result) {
+            return Response::create(['error' => false]);
         } else {
-            return Response::create(['error'=>true],400);
+            return Response::create(['error' => true], 400);
         }
     }
 
-    public function registerTicket(TeacherRegisterTicketRequest $request){
+    public function registerTicket(TeacherRegisterTicketRequest $request)
+    {
         $ticketsRepository = app(TicketsRepository::class);
         $result = $ticketsRepository->storeItem($request->input());
         if ($result) {
             return Response::create($result);
         } else {
-            return Response::create(['error'=>true],400);
+            return Response::create(['error' => true], 400);
         }
     }
 
-    public function deleteTicket(TeacherBaseDeleteRequest $request){
+    public function deleteTicket(TeacherBaseDeleteRequest $request)
+    {
         $ticketsRepository = app(TicketsRepository::class);
         $result = $ticketsRepository->destroyItem($request->input('id'));
-        if ($result){
-            return Response::create(['error'=>false]);
+        if ($result) {
+            return Response::create(['error' => false]);
         } else {
-            return Response::create(['error'=>true],400);
+            return Response::create(['error' => true], 400);
         }
+    }
+
+    public function getAllLessons()
+    {
+        $lessonsRepository = app(LessonsRepository::class);
+        return ApiTeacherLessonRessource::collection($lessonsRepository->getAllItems());
+    }
+
+    public function getAllTickets()
+    {
+        $ticketsRepository = app(TicketsRepository::class);
+        return ApiTeacherTicketResource::collection($ticketsRepository->getAllItems());
     }
 }
