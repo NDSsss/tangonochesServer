@@ -17,6 +17,7 @@ class StudentTicketsResource extends JsonResource
         return [
             'id' => $this->id,
             'lessons_left' => $this->lessons_left,
+            'type' => $this->ticketEventType,
             'ticket' => new TicketResource($this->ticket),
         ];
     }
