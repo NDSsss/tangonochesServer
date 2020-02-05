@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\School;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\BaseApiRequest;
 
 class BaseApiRequestRequest extends BaseApiRequest
 {

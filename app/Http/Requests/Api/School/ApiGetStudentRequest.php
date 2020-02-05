@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Api\School;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 class ApiGetStudentRequest extends BaseApiRequestRequest
 {
 
@@ -15,7 +13,7 @@ class ApiGetStudentRequest extends BaseApiRequestRequest
     public function rules()
     {
         return [
-            'barcode_id'=>'exists:students,barcode_id'
+            'barcode_id' => 'exists:students,barcode_id'
         ];
     }
 }
