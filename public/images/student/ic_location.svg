@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{opacity:.5}.cls-2{fill:none}.cls-3{fill:#fff}
+        </style>
+    </defs>
+    <g id="compass-3-fill" class="cls-1">
+        <path id="Path_22783" d="M0 0h24v24H0z" class="cls-2" data-name="Path 22783"/>
+        <path id="Path_22784" d="M11.439 20.879a9.439 9.439 0 1 1 9.439-9.439 9.439 9.439 0 0 1-9.439 9.439zm4.248-13.687l-6.135 2.36-2.36 6.136 6.136-2.36zm-4.248 5.192a.944.944 0 1 1 .944-.944.944.944 0 0 1-.944.943z" class="cls-3" data-name="Path 22784" transform="translate(.561 .561)"/>
+    </g>
+</svg>

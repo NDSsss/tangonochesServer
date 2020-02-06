@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'School\StudentController@showAnnounces');
 
 Route::get('/admin', function () {
     return view('admin');
