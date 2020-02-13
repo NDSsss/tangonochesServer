@@ -22,6 +22,9 @@ class TeacherRegisterTicketRequest extends BaseApiTeacherRequest
             'ticket_end_date'=>'required',
             'student_id'=>'required|exists:students,id',
             'teacher_id'=>'required|exists:teachers,id',
+            'extra_lessons'=>'required|integer',
+            'is_in_pair'=>'required|boolean',
+            'is_nullify'=>'required|boolean',
         ];
     }
 
@@ -33,8 +36,6 @@ class TeacherRegisterTicketRequest extends BaseApiTeacherRequest
             'student_id' => (int)$this['student_id'],
             'teacher_id' => (int)$this['teacher_id'],
             'extra_lessons' => (int)$this['extra_lessons'],
-            'is_in_pair' => $this['is_in_pair'] != null,
-            'is_nullify' => $this['is_nullify'] != null,
         ]);
     }
 }

@@ -28,15 +28,25 @@ Route::group(['namespace' => 'Api', 'prefix' => '/student'], function () {
 
 Route::post('/teacher/getToken', 'Api\School\ApiTeacherAuthController@getToken');
 Route::group(['namespace' => 'Api', 'prefix' => '/teacher', 'middleware' => 'APIToken'], function () {
-    Route::get('/allStudents', 'School\ApiTeacherController@getAllStudents');
-    Route::get('/initData', 'School\ApiTeacherController@getInitData');
-    Route::post('/registerLesson', 'School\ApiTeacherController@registerLesson');
-    Route::post('/updateLesson', 'School\ApiTeacherController@updateLesson');
-    Route::post('/deleteLesson', 'School\ApiTeacherController@deleteLesson');
-    Route::post('/registerTicket', 'School\ApiTeacherController@registerTicket');
-    Route::post('/deleteTicket', 'School\ApiTeacherController@deleteTicket');
-    Route::post('/getAllLessons', 'School\ApiTeacherController@getAllLessons');
-    Route::post('/getAllTickets', 'School\ApiTeacherController@getAllTickets');
+
+    Route::post('/initData', 'School\ApiTeacherController@getInitData');
+
+    Route::post('/allStudents', 'School\ApiTeacherStudentsController@getAllStudents');
+    Route::post('/studentById', 'School\ApiTeacherStudentsController@studentById');
+    Route::post('/registerStudent', 'School\ApiTeacherStudentsController@registerStudent');
+    Route::post('/updateStudent', 'School\ApiTeacherStudentsController@updateStudent');
+    Route::post('/deleteStudent', 'School\ApiTeacherStudentsController@deleteStudent');
+
+    Route::post('/allLessons', 'School\ApiTeacherLessonsController@allLessons');
+    Route::post('/lessonById', 'School\ApiTeacherLessonsController@lessonById');
+    Route::post('/registerLesson', 'School\ApiTeacherLessonsController@registerLesson');
+    Route::post('/updateLesson', 'School\ApiTeacherLessonsController@updateLesson');
+    Route::post('/deleteLesson', 'School\ApiTeacherLessonsController@deleteLesson');
+
+    Route::post('/allTickets', 'School\ApiTeacherTicketsController@getAllTickets');
+    Route::post('/ticketById', 'School\ApiTeacherTicketsController@ticketById');
+    Route::post('/registerTicket', 'School\ApiTeacherTicketsController@registerTicket');
+    Route::post('/deleteTicket', 'School\ApiTeacherTicketsController@deleteTicket');
 });
 
 Route::get('deploy', function () {

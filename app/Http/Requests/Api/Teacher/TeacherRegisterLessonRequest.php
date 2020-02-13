@@ -17,8 +17,8 @@ class TeacherRegisterLessonRequest extends BaseApiTeacherRequest
         return [
             'name' => 'required',
             'group_id' => 'required|exists:groups,id',
-            'present_teachers' => 'present',
-            'present_students' => 'present',
+            'present_teachers' => 'present|array',
+            'present_students' => 'present|array',
         ];
     }
 

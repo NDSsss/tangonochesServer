@@ -21,7 +21,7 @@ class CreateTicketsTable extends Migration
             $table->timestamp('ticket_bought_date')->useCurrent();
             $table->unsignedBigInteger('ticket_count_type_id')->default(1);
             $table->unsignedBigInteger('ticket_event_type_id')->default(1);
-            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('student_id')->nullable();
             $table->unsignedBigInteger('teacher_id');
             $table->boolean('is_in_pair')->default(false);
             $table->boolean('is_nullify')->default(true);
@@ -32,7 +32,7 @@ class CreateTicketsTable extends Migration
 
             $table->foreign('ticket_count_type_id')->references('id')->on('ticket_count_types');
             $table->foreign('ticket_event_type_id')->references('id')->on('ticket_event_types');
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('SET NULL');
             $table->foreign('teacher_id')->references('id')->on('teachers');
 
         });

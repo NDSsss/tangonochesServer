@@ -25,11 +25,10 @@ class CreateStudentsTable extends Migration
             $table->bigInteger('instagram_profile_id')->unique()->nullable()->default(null);
             $table->string('photo_link')->nullable()->default(null);
             $table->string('extra_info')->nullable()->default(null);
-            $table->string('push_token')->nullable()->default(null);
+            $table->string('push_token')->unique()->nullable()->default(null);
             $table->integer('barcode_id')->unique()->nullable()->default(null);
 
             $table->timestamps();
-            $table->softDeletes();
 
         });
     }
