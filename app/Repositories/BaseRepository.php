@@ -66,6 +66,11 @@ abstract class BaseRepository
         return $this->getAllItemsQuery()->get();
     }
 
+    function getAllItemsApiPaginated($page, $countOnPage): Collection
+    {
+        return $this->getAllItemsQuery()->offset(($page-1)*$countOnPage)->limit($countOnPage)->get();
+    }
+
     function getItemById($id): Model
     {
         return $this->getAllItemsQuery()->where('id', '=', $id)->get()->first();
@@ -81,7 +86,6 @@ abstract class BaseRepository
 
     function storeItem($data): Model
     {
-        \Log::debug('BaseRepository creating');
         $item = $this->startConditions()::create($data);
         return $item;
     }

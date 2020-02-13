@@ -15,13 +15,13 @@ class TeacherUpdateLessonRequest extends BaseApiTeacherRequest
      */
     public function rules()
     {
-        return [
-            'id' => 'required',
-            'name' => 'required',
-            'group_id' => 'required|exists:groups,id',
-            'present_teachers' => 'present',
-            'present_students' => 'present',
+        $updateFields = [
+            'id'=>'required|exists:lessons,id'
         ];
+        $registerRequest = new TeacherRegisterLessonRequest();
+        $registerFields = $registerRequest->rules();
+        $resultFields = array_merge($updateFields,$registerFields);
+        return $resultFields;
     }
 
     protected function prepareForValidation()

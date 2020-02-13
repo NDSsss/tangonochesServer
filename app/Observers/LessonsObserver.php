@@ -20,8 +20,8 @@ class LessonsObserver
      */
     public function created(Lesson $lesson)
     {
-        $name = Auth::user()->name;
-        \Log::debug("Lesson created by $name $lesson");
+//        $name = Auth::user()->name;
+        \Log::debug("Lesson created $lesson");
     }
 
     public function updating(Lesson $lesson)

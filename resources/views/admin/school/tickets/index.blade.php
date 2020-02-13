@@ -40,7 +40,15 @@
                                 @foreach($paginator as $item)
                                     <tr>
                                         <td><a href="{{route("$currentRoute.edit",$item->id)}}">{{$item->id}}</a></td>
-                                        <td><a href="{{route("$currentRoute.edit",$item->id)}}">{{$item->student->name}}</a></td>
+                                        @if($item->student != null)
+                                            <td>
+                                                <a href="{{route("$currentRoute.edit",$item->id)}}">{{$item->student->name}}</a>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <a href="{{route("$currentRoute.edit",$item->id)}}">Удален</a>
+                                            </td>
+                                        @endif
                                         <td>{{$item->teacher->name}}</td>
                                         <td>{{$item->ticket_bought_date}}</td>
                                         <td>{{$item->ticket_start_date}}</td>
