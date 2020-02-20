@@ -12,6 +12,10 @@
 */
 
 Route::get('/', 'School\StudentController@showAnnounces');
+Route::get('/licence', function (){
+    $appName = "Licence";
+    return view('licence', compact('appName'));
+});
 
 Route::get('/admin', function () {
     return view('admin');

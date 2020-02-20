@@ -7,7 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    @if(empty($appName))
+        <title>{{ config('app.name', 'Licence') }}</title>
+    @else
+        <title>{{ $appName ?? config('app.name', 'Licence')}}</title>
+    @endif
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
