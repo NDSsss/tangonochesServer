@@ -26,6 +26,8 @@ Route::group(['namespace' => 'Api', 'prefix' => '/student'], function () {
     Route::get('/eventAnnounces', 'School\ApiAnnouncesController@eventAnnounces');
 });
 
+Route::post('student/registerNew','Api\School\StudentRegisterController@registerStudent');
+
 Route::post('/teacher/getToken', 'Api\School\ApiTeacherAuthController@getToken');
 Route::group(['namespace' => 'Api', 'prefix' => '/teacher', 'middleware' => 'APIToken'], function () {
 

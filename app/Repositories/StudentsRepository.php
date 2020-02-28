@@ -82,5 +82,15 @@ class StudentsRepository extends BaseRepository
         return $vkId;
     }
 
+    function createStudentByEmail($email): int {
+        $newStudent = $this->createItem();
+        $newStudent->name = $email;
+        $maxBarcodeId = $this->startConditions()->newQuery()->select('barcode_id')->max('barcode_id');
+        $maxBarcodeId++;
+        $newStudent->barcode_id = $maxBarcodeId;
+        $newStudent->save();
+        return $maxBarcodeId;
+    }
+
 
 }
