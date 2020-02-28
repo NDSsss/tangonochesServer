@@ -3,7 +3,6 @@
 @section('content')
     <div class="row justify-content-md-center" style="background: white">
         <div class="col-md-auto">
-            teeeeeeeeeeeeeeeeeeeeeeeeeeeeest
             <h4 align="center">Политика конфиденциальности</h4>
             <p>
                 Данный документ описывает процесс сбора, использования, раскрытия, передачи и хранения данных Ibragim Khasanov при использовании программы TangoNoches.
