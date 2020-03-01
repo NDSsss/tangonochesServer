@@ -19,7 +19,7 @@ Route::get('/licence', function (){
 
 Route::get('/licenceAndroid', function (){
     $appName = "Licence";
-    return view('licence', compact('appName'));
+    return view('licence_android', compact('appName'));
 });
 
 Route::get('/admin', function () {
