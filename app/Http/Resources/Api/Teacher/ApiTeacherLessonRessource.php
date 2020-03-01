@@ -19,6 +19,7 @@ class ApiTeacherLessonRessource extends JsonResource
 //        $teachers = $lessonsRepository->getTeacherIdsOfLesson($this->id);
 //        $students = $lessonsRepository->getStudentIdsOfLesson($this->id);
         return [
+            'id'=>$this->id,
             'name'=>$this->name,
             'group_id'=>$this->group_id,
 //            'teachers'=>$teachers,
