@@ -17,6 +17,11 @@ Route::get('/licence', function (){
     return view('licence', compact('appName'));
 });
 
+Route::get('/licenceAndroid', function (){
+    $appName = "Licence";
+    return view('licence', compact('appName'));
+});
+
 Route::get('/admin', function () {
     return view('admin');
 })->middleware(['auth'])->name('admin');
