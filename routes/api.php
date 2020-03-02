@@ -53,6 +53,8 @@ Route::group(['namespace' => 'Api', 'prefix' => '/teacher', 'middleware' => 'API
     Route::get('/allGroups', 'School\ApiTeacherGroupsController@getAllGroups');
     Route::get('/allTicketCountTypes', 'School\ApiTeacherTicketCountTypesController@getAllTicketCountTypes');
     Route::get('/allTicketEventTypes', 'School\ApiTeacherTicketEventTypesController@getAllTicketEventTypes');
+
+    Route::get('allTeachers','School\ApiTeacherTeachersController@getAllTeachers');
 });
 
 Route::get('deploy', function () {
