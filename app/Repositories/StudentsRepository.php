@@ -45,9 +45,11 @@ class StudentsRepository extends BaseRepository
 
     function storeItem($data): Model
     {
-        if ($data['vk_profile_link'] != null) {
-            $link = $data['vk_profile_link'];
-            $data['vk_profile_id'] = $this->getVkId($link);
+        if (key_exists('vk_profile_link', $data)) {
+            if ($data['vk_profile_link'] != null) {
+                $link = $data['vk_profile_link'];
+                $data['vk_profile_id'] = $this->getVkId($link);
+            }
         }
         $item = $this->startConditions()::create($data);
         return $item;
@@ -82,7 +84,8 @@ class StudentsRepository extends BaseRepository
         return $vkId;
     }
 
-    function createStudentByEmail($email): int {
+    function createStudentByEmail($email): int
+    {
         $newStudent = $this->createItem();
         $newStudent->name = $email;
         $maxBarcodeId = $this->startConditions()->newQuery()->select('barcode_id')->max('barcode_id');
