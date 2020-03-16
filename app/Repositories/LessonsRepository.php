@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Interactors\VolochkovSheetsInteractor;
 use App\Models\Lesson;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -104,7 +105,10 @@ class LessonsRepository extends BaseRepository
         $this->lessonsLeftRepository->decreaseStudentsLessonsLeftCount($studentIds, $eventType);
         if ($saveResult) {
             \DB::commit();
-            return $lesson->refresh();
+            $refreshedLesson = $lesson->refresh();
+            $volochkovInteractor = new VolochkovSheetsInteractor();
+            $volochkovInteractor->registerLessonVisits($refreshedLesson);
+            return $refreshedLesson;
         } else {
             \DB::rollBack();
             return null;

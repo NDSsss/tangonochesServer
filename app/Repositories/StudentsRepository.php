@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Interactors\VolochkovSheetsInteractor;
 use App\Models\Student;
 use App\Models\StudentsTicketTypesLessonsLeft;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -52,6 +53,8 @@ class StudentsRepository extends BaseRepository
             }
         }
         $item = $this->startConditions()::create($data);
+        $volochkovInteractor = new VolochkovSheetsInteractor();
+        $volochkovInteractor->updateStudent($item);
         return $item;
     }
 
@@ -67,6 +70,8 @@ class StudentsRepository extends BaseRepository
             $group->vk_profile_id = $this->getVkId($link);
         }
         $result = $group->save();
+        $volochkovInteractor = new VolochkovSheetsInteractor();
+        $volochkovInteractor->updateStudent($this->getItemById($id));
         return $result;
     }
 
