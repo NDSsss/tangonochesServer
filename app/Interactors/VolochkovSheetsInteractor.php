@@ -93,7 +93,6 @@ class VolochkovSheetsInteractor
 
         $request['record'] = $record;
         $requestJson = json_encode($request);
-        dd($requestJson);
         $client = new \GuzzleHttp\Client();
         $url = "https://script.google.com/macros/s/AKfycbwwgtPVBck0oKJ3FU435xcbhVHbz0AXh09UvsHwe1AmRwsWfsuF/exec";
 
