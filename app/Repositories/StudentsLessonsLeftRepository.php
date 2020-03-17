@@ -118,9 +118,9 @@ class StudentsLessonsLeftRepository
         $newItem->lessons_left = $count;
         $newItem->student_id = $studentId;
         $newItem->ticket_event_type_id = $lessonTypeId;
-        if ($ticketId != null) {
+//        if ($ticketId != null) {
             $newItem->ticket_id = $ticketId;
-        }
+//        }
         $newItem->save();
         \Log::debug("created $newItem");
         $saveResult = $newItem->save();
