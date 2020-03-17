@@ -26,6 +26,10 @@ Route::get('/licenceEasyCoolPhoto', function (){
     $appName = "EasyCoolPhoto";
     return view('licence_easy_cool_photo', compact('appName'));
 });
+Route::get('/licenceFilta', function (){
+    $appName = "FILTA";
+    return view('licence_filta', compact('appName'));
+});
 
 Route::get('/admin', function () {
     return view('admin');
