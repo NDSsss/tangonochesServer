@@ -12,23 +12,23 @@ class StudentsSeeder extends Seeder
      */
     public function run()
     {
-        $getStudentsUrl = 'https://script.google.com/macros/s/AKfycbwwgtPVBck0oKJ3FU435xcbhVHbz0AXh09UvsHwe1AmRwsWfsuF/exec?action=getStudents';
+        $getStudentsUrl = env('VOLOCHKOV_SHEETS_URL');
         $jsonAnswer = json_decode(file_get_contents($getStudentsUrl), true);
         $usersToInsert = [];
-        $usersToInsert[] = [
-            'name' => 'No Name',
-            'phone' => "No Phone",
-            'vk_profile_link' => 'No Value',
-            'vk_profile_id' => -1,
-            'facebook_profile_link' => 'No Value def',
-            'facebook_profile_id' => -1,
-            'instagram_profile_link' => 'No Value',
-            'instagram_profile_id' => -1,
-            'photo_link' => 'No Value',
-            'extra_info' => 'No Value',
-            'push_token' => 'No Value',
-            'barcode_id' => -1,
-        ];
+//        $usersToInsert[] = [
+//            'name' => 'No Name',
+//            'phone' => "No Phone",
+//            'vk_profile_link' => 'No Value',
+//            'vk_profile_id' => -1,
+//            'facebook_profile_link' => 'No Value def',
+//            'facebook_profile_id' => -1,
+//            'instagram_profile_link' => 'No Value',
+//            'instagram_profile_id' => -1,
+//            'photo_link' => 'No Value',
+//            'extra_info' => 'No Value',
+//            'push_token' => 'No Value',
+//            'barcode_id' => -1,
+//        ];
         if ($jsonAnswer['result'] == 0) {
             $usersRaw = $jsonAnswer['students'];
             foreach ($usersRaw as $keyy => $ur) {

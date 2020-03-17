@@ -6,6 +6,11 @@ namespace App\Interactors;
 
 class VolochkovSheetsInteractor
 {
+
+    function getSheetsUrl(){
+        return env('VOLOCHKOV_SHEETS_URL');
+    }
+
     function registerLessonVisits($lesson)
     {
         $request = [];
@@ -20,7 +25,7 @@ class VolochkovSheetsInteractor
         $requestJson = json_encode($request);
 
         $client = new \GuzzleHttp\Client();
-        $url = "https://script.google.com/macros/s/AKfycbwwgtPVBck0oKJ3FU435xcbhVHbz0AXh09UvsHwe1AmRwsWfsuF/exec";
+        $url = $this->getSheetsUrl();
 
         $apiRequest = $client->post($url, ['body' => $requestJson]);
     }
@@ -48,7 +53,7 @@ class VolochkovSheetsInteractor
         $request['student'] = $requestStudent;
         $requestJson = json_encode($request);
         $client = new \GuzzleHttp\Client();
-        $url = "https://script.google.com/macros/s/AKfycbwwgtPVBck0oKJ3FU435xcbhVHbz0AXh09UvsHwe1AmRwsWfsuF/exec";
+        $url = $this->getSheetsUrl();
 
         $apiRequest = $client->post($url, ['body' => $requestJson]);
     }
@@ -94,7 +99,7 @@ class VolochkovSheetsInteractor
         $request['record'] = $record;
         $requestJson = json_encode($request);
         $client = new \GuzzleHttp\Client();
-        $url = "https://script.google.com/macros/s/AKfycbwwgtPVBck0oKJ3FU435xcbhVHbz0AXh09UvsHwe1AmRwsWfsuF/exec";
+        $url = $this->getSheetsUrl();
 
         $apiRequest = $client->post($url, ['body' => $requestJson]);
     }
