@@ -12,7 +12,7 @@ class StudentsSeeder extends Seeder
      */
     public function run()
     {
-        $getStudentsUrl = env('VOLOCHKOV_SHEETS_URL');
+        $getStudentsUrl = env('VOLOCHKOV_SHEETS_URL').'?action=getStudents';
         $jsonAnswer = json_decode(file_get_contents($getStudentsUrl), true);
         $usersToInsert = [];
 //        $usersToInsert[] = [
@@ -32,9 +32,14 @@ class StudentsSeeder extends Seeder
         if ($jsonAnswer['result'] == 0) {
             $usersRaw = $jsonAnswer['students'];
             foreach ($usersRaw as $keyy => $ur) {
+                if ($ur['phone'] == '') {
+                    $currPhone = null;
+                } else {
+                    $currPhone = $ur['phone'];
+                }
                 $studSql = [
                     'name' => $ur['name'],
-                    'phone' => "{$keyy}",
+                    'phone' => $currPhone,
                     'vk_profile_link' => null,
                     'vk_profile_id' => null,
                     'facebook_profile_link' => null,
