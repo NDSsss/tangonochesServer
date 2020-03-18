@@ -4,6 +4,8 @@
 namespace App\Interactors;
 
 
+use App\Models\Student;
+
 class VolochkovSheetsInteractor
 {
 
@@ -14,13 +16,16 @@ class VolochkovSheetsInteractor
 
     function registerLessonVisits($lesson, $studentIds)
     {
+        $studentsFromBd = Student::all()->whereIn('id',$studentIds);
+        $studentIdsArray = $studentIds->toArray();
+        \Log::debug('registerLessonVisits pre '.json_encode($lesson->id).json_encode($studentIds).json_encode($studentIdsArray).json_encode($studentsFromBd));
         $request = [];
         $request['action'] = 'register_lesson_visits';
         $students = [];
         $lessonId = $lesson->id;
-        foreach ($lesson->students as $student) {
+        foreach ($studentsFromBd as $student) {
             $currentStudentId = $student->id;
-            if (is_array($studentIds) && in_array($currentStudentId, $studentIds)) {
+            if (is_array($studentIdsArray) && in_array($currentStudentId, $studentIdsArray)) {
                 $item = [];
                 $item['name'] = $student->name;
                 $item['visit_id'] = $lessonId .'0'. $student->id;
@@ -40,6 +45,7 @@ class VolochkovSheetsInteractor
 
     function unregisterLessonVisits($lesson, $studentIds)
     {
+        \Log::debug('unregisterLessonVisits pre '.json_encode($lesson->id).json_encode($studentIds));
         $request = [];
         $request['action'] = 'unregister_lesson_visits';
         $students = [];
@@ -54,7 +60,7 @@ class VolochkovSheetsInteractor
 
         $client = new \GuzzleHttp\Client();
         $url = $this->getSheetsUrl();
-        \Log::debug('registerLessonVisits'.json_encode($lessonId).json_encode($students));
+        \Log::debug('unregisterLessonVisits'.json_encode($lessonId).json_encode($students));
 //        dd('unregisterLessonVisits', $lessonId, $students);
 
         $apiRequest = $client->post($url, ['body' => $requestJson]);
