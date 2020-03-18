@@ -17,7 +17,11 @@ class VolochkovSheetsInteractor
     function registerLessonVisits($lesson, $studentIds)
     {
         $studentsFromBd = Student::all()->whereIn('id',$studentIds);
-        $studentIdsArray = $studentIds->toArray();
+        if(is_array($studentIds)) {
+            $studentIdsArray = $studentIds;
+        } else {
+            $studentIdsArray = $studentIds->toArray();
+        }
         \Log::debug('registerLessonVisits pre '.json_encode($lesson->id).json_encode($studentIds).json_encode($studentIdsArray).json_encode($studentsFromBd));
         $request = [];
         $request['action'] = 'register_lesson_visits';
