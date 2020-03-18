@@ -7,18 +7,46 @@ namespace App\Interactors;
 class VolochkovSheetsInteractor
 {
 
-    function getSheetsUrl(){
+    function getSheetsUrl()
+    {
         return env('VOLOCHKOV_SHEETS_URL');
     }
 
-    function registerLessonVisits($lesson)
+    function registerLessonVisits($lesson, $studentIds)
     {
         $request = [];
         $request['action'] = 'register_lesson_visits';
         $students = [];
+        $lessonId = $lesson->id;
         foreach ($lesson->students as $student) {
+            $currentStudentId = $student->id;
+            if (is_array($studentIds) && in_array($currentStudentId, $studentIds)) {
+                $item = [];
+                $item['name'] = $student->name;
+                $item['visit_id'] = $lessonId .'0'. $student->id;
+                $students[] = $item;
+            }
+        }
+        $request['students'] = $students;
+        $requestJson = json_encode($request);
+
+        $client = new \GuzzleHttp\Client();
+        $url = $this->getSheetsUrl();
+        \Log::debug('registerLessonVisits'.json_encode($lessonId).json_encode($students));
+//        dd('registerLessonVisits', $lessonId, $students);
+
+        $apiRequest = $client->post($url, ['body' => $requestJson]);
+    }
+
+    function unregisterLessonVisits($lesson, $studentIds)
+    {
+        $request = [];
+        $request['action'] = 'unregister_lesson_visits';
+        $students = [];
+        $lessonId = $lesson->id;
+        foreach ($studentIds as $idToDelete) {
             $item = [];
-            $item['name'] = $student->name;
+            $item['visit_id'] = $lessonId .'0'. $idToDelete;
             $students[] = $item;
         }
         $request['students'] = $students;
@@ -26,6 +54,8 @@ class VolochkovSheetsInteractor
 
         $client = new \GuzzleHttp\Client();
         $url = $this->getSheetsUrl();
+        \Log::debug('registerLessonVisits'.json_encode($lessonId).json_encode($students));
+//        dd('unregisterLessonVisits', $lessonId, $students);
 
         $apiRequest = $client->post($url, ['body' => $requestJson]);
     }

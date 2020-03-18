@@ -107,7 +107,7 @@ class LessonsRepository extends BaseRepository
             \DB::commit();
             $refreshedLesson = $lesson->refresh();
             $volochkovInteractor = new VolochkovSheetsInteractor();
-            $volochkovInteractor->registerLessonVisits($refreshedLesson);
+            $volochkovInteractor->registerLessonVisits($refreshedLesson,$studentIds);
             return $refreshedLesson;
         } else {
             \DB::rollBack();
@@ -139,9 +139,13 @@ class LessonsRepository extends BaseRepository
         \DB::beginTransaction();
         if (count($oldStudentIds) > 0) {
             $this->lessonsLeftRepository->increaseStudentsLessonsLeftCount($oldStudentIds, $oldGroup->ticket_event_type_id);
+            $volochkovInteractor = new VolochkovSheetsInteractor();
+            $volochkovInteractor->unregisterLessonVisits($lesson,$oldStudentIds);
         }
         if (count($newStudentIds) > 0) {
             $this->lessonsLeftRepository->decreaseStudentsLessonsLeftCount($newStudentIds, $newGroup->ticket_event_type_id);
+            $volochkovInteractor = new VolochkovSheetsInteractor();
+            $volochkovInteractor->registerLessonVisits($lesson,$newStudentIds);
         }
 
 //        if ($oldGroup->ticket_event_type_id != $newGroup->ticket_event_type_id) {
@@ -211,6 +215,8 @@ class LessonsRepository extends BaseRepository
         $studentsDetached = $studentsSyncResult['detached'];
         if (count($studentsDetached) > 0) {
             $this->lessonsLeftRepository->increaseStudentsLessonsLeftCount($studentsDetached, $lesson->group->ticket_event_type_id);
+            $volochkovInteractor = new VolochkovSheetsInteractor();
+            $volochkovInteractor->unregisterLessonVisits($lesson,$studentsDetached);
         }
         $lessonLog = json_encode($lesson);
         $studentsDetachedLog = json_encode($studentsDetached);
