@@ -42,6 +42,30 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="tab-pane active" id="maindata" role="tabpanel">
+                        <div class="form-group">
+                            <label for="email">email</label>
+                            <input name="email" value="{{ $item->email }}"
+                                   id="email"
+                                   type="email"
+                                   class="form-control"
+                                   minlength="3"
+                                   required>
+                        </div>
+                    </div>
+                    @if(!$item->exists)
+                        <div class="tab-pane active" id="maindata" role="tabpanel">
+                            <div class="form-group">
+                                <label for="password">password</label>
+                                <input name="password" value="{{ $item->password }}"
+                                       id="password"
+                                       type="text"
+                                       class="form-control"
+                                       minlength="3"
+                                       required>
+                            </div>
+                        </div>
+                    @endif
 
                 </div>
             </div>

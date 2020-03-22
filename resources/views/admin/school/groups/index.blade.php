@@ -26,6 +26,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Название</th>
+                                <th>Тип</th>
                                 <th>1 урок</th>
                                 <th>2 урок</th>
                                 <th>Адресс</th>
@@ -40,6 +41,7 @@
                                     <tr>
                                         <td>{{$group->id}}</td>
                                         <td><a href="{{route("$currentRoute.edit",$group->id)}}">{{$group->name}}</a></td>
+                                        <td>{{$group->ticketEventType->name}}</td>
                                         <td>{{date_format(date_create($group->first_lesson_time),'l H-i')}}</td>
                                         <td>{{date_format(date_create($group->second_lesson_time),'l H-i')}}</td>
                                         <td>{{$group->address}}</td>

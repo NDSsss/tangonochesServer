@@ -5,6 +5,8 @@ vendor/
 node_modules/
 npm-debug.log
 
+*.apk
+
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/

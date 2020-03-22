@@ -8,5 +8,12 @@ use Illuminate\Http\Request;
 
 class BaseAdminSchoolController extends BaseSchoolController
 {
-    //
+
+    /**
+     * BaseAdminSchoolController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

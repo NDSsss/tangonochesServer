@@ -11,9 +11,29 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', 'School\StudentController@showAnnounces');
+Route::get('/licence', function (){
+    $appName = "Licence";
+    return view('licence', compact('appName'));
 });
+
+Route::get('/licenceAndroid', function (){
+    $appName = "Licence";
+    return view('licence_android', compact('appName'));
+});
+
+Route::get('/licenceEasyCoolPhoto', function (){
+    $appName = "EasyCoolPhoto";
+    return view('licence_easy_cool_photo', compact('appName'));
+});
+Route::get('/licenceFilta', function (){
+    $appName = "FILTA";
+    return view('licence_filta', compact('appName'));
+});
+
+Route::get('/admin', function () {
+    return view('admin');
+})->middleware(['auth'])->name('admin');
 
 Route::group(['namespace' => 'School', 'prefix' => 'school'], function () {
     Route::resource('teachers', 'TeacherController')->names('school.teachers');

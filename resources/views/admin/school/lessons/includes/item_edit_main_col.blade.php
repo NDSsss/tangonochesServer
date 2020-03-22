@@ -47,7 +47,7 @@
                             <div class="form-check">
                                 <input class="form-check-input"
                                        type="checkbox"
-                                       id="{{"present_students_$teacher->id"}}"
+                                       id="{{"present_teachers_$teacher->id"}}"
                                        name="present_teachers[]"
                                        @if($teacher->selected)checked=""@endif
                                        value="{{$teacher->id}}">

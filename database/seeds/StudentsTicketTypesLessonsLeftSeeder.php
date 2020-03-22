@@ -50,7 +50,7 @@ class StudentsTicketTypesLessonsLeftSeeder extends Seeder
             }
         }
 
-        DB::table('students_ticket_types_lessons_left')->insert($values);
+        DB::table('students_ticket_types_lessons_lefts')->insert($values);
     }
 
     function getTemplate($student_id, $ticket_event_type_id, $lessons_left){

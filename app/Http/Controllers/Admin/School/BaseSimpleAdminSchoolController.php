@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\School;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 
@@ -12,7 +11,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
      * @var BaseRepository
      */
     protected $repository;
-    protected $currentPath;
+    public $currentPath;
 
     /**
      * BaseSimpleAdminSchoolController constructor.
@@ -26,7 +25,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
         $groupPath = $group['group_prefix'];
         $pagePath = $group['pages'][$numberInPages][0];
         $this->currentPath = "$adminPath.$groupPath.$pagePath";
-
+        parent::__construct();
     }
 
 
@@ -38,7 +37,6 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
     public function index()
     {
         $paginator = $this->repository->getAllItemsPaginated();
-
         return view($this->currentPath . '.index', compact('paginator'));
     }
 
@@ -60,7 +58,7 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    protected function baseStore(Request $request)
     {
         $group = $this->repository->storeItem($request->input());
         if ($group) {
@@ -106,17 +104,16 @@ abstract class BaseSimpleAdminSchoolController extends BaseAdminSchoolController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    protected function baseUpdate(Request $request, $id)
     {
         $group = $this->repository->getItemById($id);
         if (empty($group)) {
             return back()
-                ->withErrors(['msg' => "Преподователь с id={$id} не найден"])
+                ->withErrors(['msg' => "Запись с id={$id} не найден"])
                 ->withInput();
         }
-
         $data = $request->all();
-        $result = $group->update($data);
+        $result = $this->repository->updateItem($data, $id);
         if ($result) {
             return redirect()
                 ->route($this->currentPath . '.edit', $group->id)

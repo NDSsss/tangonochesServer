@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
          $this->call(TicketCountTypesSeeder::class);
          $this->call(TicketEventTypeSeeder::class);
          $this->call(GroupsSeeder::class);
-         $this->call(LessonsSeeder::class);
-         $this->call(LessonsStudentsSeeder::class);
-         $this->call(LessonsTeachersSeeder::class);
+//         $this->call(LessonsSeeder::class);
+//         $this->call(LessonsStudentsSeeder::class);
+//         $this->call(LessonsTeachersSeeder::class);
          $this->call(TicketsSeeder::class);
-         $this->call(StudentsTicketTypesLessonsLeftSeeder::class);
+//         $this->call(StudentsTicketTypesLessonsLeftSeeder::class);
          $this->call(EventAnnounceSeeder::class);
          $this->call(LessonAnnounceSeeder::class);
     }

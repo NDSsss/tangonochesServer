@@ -12,25 +12,44 @@ class StudentsSeeder extends Seeder
      */
     public function run()
     {
-        $getStudentsUrl = 'https://script.google.com/macros/s/AKfycbwwgtPVBck0oKJ3FU435xcbhVHbz0AXh09UvsHwe1AmRwsWfsuF/exec?action=getStudents';
+        $getStudentsUrl = env('VOLOCHKOV_SHEETS_URL').'?action=getStudents';
         $jsonAnswer = json_decode(file_get_contents($getStudentsUrl), true);
         $usersToInsert = [];
+//        $usersToInsert[] = [
+//            'name' => 'No Name',
+//            'phone' => "No Phone",
+//            'vk_profile_link' => 'No Value',
+//            'vk_profile_id' => -1,
+//            'facebook_profile_link' => 'No Value def',
+//            'facebook_profile_id' => -1,
+//            'instagram_profile_link' => 'No Value',
+//            'instagram_profile_id' => -1,
+//            'photo_link' => 'No Value',
+//            'extra_info' => 'No Value',
+//            'push_token' => 'No Value',
+//            'barcode_id' => -1,
+//        ];
         if ($jsonAnswer['result'] == 0) {
             $usersRaw = $jsonAnswer['students'];
-            foreach ($usersRaw as $keyy=>$ur) {
+            foreach ($usersRaw as $keyy => $ur) {
+                if ($ur['phone'] == '') {
+                    $currPhone = null;
+                } else {
+                    $currPhone = $ur['phone'];
+                }
                 $studSql = [
                     'name' => $ur['name'],
-                    'phone' => "{$keyy}",
-                    'vk_profile_link' => $ur['vk_link'],
-                    'vk_profile_id' => $keyy,
-                    'facebook_profile_link' => 'facebook_profile_link def',
-                    'facebook_profile_id' => $keyy,
-                    'instagram_profile_link' => 'instagram_profile_link def',
-                    'instagram_profile_id' => $keyy,
-                    'photo_link' => 'photo_link def',
-                    'extra_info'  => $ur['extra_inf'],
-                    'push_token' => 'push_token def',
-                    'barcode_id' => $keyy,
+                    'phone' => $currPhone,
+                    'vk_profile_link' => null,
+                    'vk_profile_id' => null,
+                    'facebook_profile_link' => null,
+                    'facebook_profile_id' => null,
+                    'instagram_profile_link' => null,
+                    'instagram_profile_id' => null,
+                    'photo_link' => null,
+                    'extra_info' => null,
+                    'push_token' => null,
+                    'barcode_id' => null,
                 ];
                 $usersToInsert[] = $studSql;
                 /*

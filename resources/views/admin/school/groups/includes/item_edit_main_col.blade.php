@@ -25,6 +25,20 @@
                                    required>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="ticket_event_type_id">Тип</label>
+                        <select name="ticket_event_type_id"
+                                id="ticket_event_type_id"
+                                class="form-control"
+                                required>
+                            @foreach($allEventTypes as $currentItem)
+                                <option value="{{ $currentItem->id }}"
+                                        @if($currentItem->id == $item->ticket_event_type_id) selected @endif>
+                                    {{ $currentItem->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
                             <label for="first_lesson_time">Первый урок</label>

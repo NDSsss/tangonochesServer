@@ -4,7 +4,6 @@
 namespace App\Repositories;
 
 
-use App\Models\Group;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -44,16 +43,22 @@ abstract class BaseRepository
 
     function getAllItemsPaginated(): LengthAwarePaginator
     {
-        return $this->getAllItemsQuery()->paginate($this->getPaginateCount());
+        return $this->getAllItemsWithRelationsQuery()->paginate($this->getPaginateCount());
     }
 
     function getAllItemsQuery(): Builder
     {
-        return $this->startConditions()::query()->select($this->getColumnsForSelect());
+        return $this->startConditions()::query()->select();
     }
 
-    function createItem():Model{
-        return $this->model::make();
+    function getAllItemsWithRelationsQuery(): Builder
+    {
+        return $this->getAllItemsQuery();
+    }
+
+    function createItem(): Model
+    {
+        return $this->startConditions()::make();
     }
 
     function getAllItems(): Collection
@@ -61,17 +66,31 @@ abstract class BaseRepository
         return $this->getAllItemsQuery()->get();
     }
 
+    function getAllItemsApiPaginated($page, $countOnPage): Collection
+    {
+        return $this->getAllItemsQuery()->offset(($page-1)*$countOnPage)->limit($countOnPage)->get();
+    }
+
     function getItemById($id): Model
     {
         return $this->getAllItemsQuery()->where('id', '=', $id)->get()->first();
     }
 
-    function storeItem($data): Model
+    function updateItem($data, $id)
     {
-        return $this->startConditions()::create($data);
+        \Log::debug('BaseRepository updating');
+        $group = $this->getItemById($id);
+        $result = $group->update($data);
+        return $result;
     }
 
-    function destroyItem($id): int
+    function storeItem($data): Model
+    {
+        $item = $this->startConditions()::create($data);
+        return $item;
+    }
+
+    function destroyItem($id)
     {
         return $this->model::destroy($id);
     }

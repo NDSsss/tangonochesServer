@@ -21,7 +21,7 @@ class CreateLessonAnnouncesTable extends Migration
             $table->unsignedBigInteger('group_id');
             $table->string('address')->nullable();
             $table->string('extra_info')->nullable();
-            $table->string('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
 
             $table->timestamps();
             $table->softDeletes();
