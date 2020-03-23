@@ -16,9 +16,12 @@ class BaseApiTeacherRequest extends BaseApiRequest
      */
     public function authorize()
     {
-        $teachers = Teacher::where('api_token',$this->header('Authorization'))->get();
+        $teachers = Teacher::query()->where('api_token', $this->header('Authorization'))->get();
         $count = count($teachers);
-        return $count>0;
+        if ($count > 0) {
+            \Auth::setUser($teachers->first());
+        }
+        return $count > 0;
     }
 
     /**

@@ -4,7 +4,7 @@
 namespace App\Repositories;
 
 
-use App\Interactors\VolochkovSheetsInteractor;
+use App\Interactors\GoogleSheetsInteractor;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -52,7 +52,7 @@ class TicketsRepository extends BaseRepository
     function storeItem($data): Model
     {
         $ans = parent::storeItem($data);
-        $volochkovInteractor = new VolochkovSheetsInteractor();
+        $volochkovInteractor = new GoogleSheetsInteractor();
         $volochkovInteractor->registerTicket($ans);
         return $ans;
     }
