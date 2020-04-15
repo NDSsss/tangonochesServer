@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +24,12 @@ Route::group(['namespace' => 'vk', 'prefix' => 'vk'], function () {
 });
 Route::group(['namespace' => 'Api', 'prefix' => '/student'], function () {
     Route::get('/student', 'School\ApiStudentController@getStudentByTicketId');
+    Route::get('/studentInfo', 'School\ApiStudentController@getStudentInfoByTicketId');
     Route::get('/lessonAnnounces', 'School\ApiAnnouncesController@lessonAnnounces');
     Route::get('/eventAnnounces', 'School\ApiAnnouncesController@eventAnnounces');
 });
 
-Route::post('student/registerNew','Api\School\StudentRegisterController@registerStudent');
+Route::post('student/registerNew', 'Api\School\StudentRegisterController@registerStudent');
 
 Route::post('/teacher/getToken', 'Api\School\ApiTeacherAuthController@getToken');
 Route::group(['namespace' => 'Api', 'prefix' => '/teacher', 'middleware' => 'APIToken'], function () {
@@ -54,7 +57,7 @@ Route::group(['namespace' => 'Api', 'prefix' => '/teacher', 'middleware' => 'API
     Route::get('/allTicketCountTypes', 'School\ApiTeacherTicketCountTypesController@getAllTicketCountTypes');
     Route::get('/allTicketEventTypes', 'School\ApiTeacherTicketEventTypesController@getAllTicketEventTypes');
 
-    Route::get('allTeachers','School\ApiTeacherTeachersController@getAllTeachers');
+    Route::get('allTeachers', 'School\ApiTeacherTeachersController@getAllTeachers');
 });
 
 Route::get('deploy', function () {

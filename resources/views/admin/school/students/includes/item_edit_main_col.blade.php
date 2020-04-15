@@ -27,7 +27,7 @@
 
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
-                            <label for="phone">Имя</label>
+                            <label for="phone">Телефон</label>
                             <input name="phone" value="{{ $item->phone }}"
                                    id="phone"
                                    type="text"
@@ -130,6 +130,16 @@
                             <label for="barcode_id">barcode_id</label>
                             <input name="barcode_id" value="{{ $item->barcode_id }}"
                                    id="barcode_id"
+                                   type="number"
+                                   class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="tab-pane active" id="maindata" role="tabpanel">
+                        <div class="form-group">
+                            <label for="barcode_id">Баллы</label>
+                            <input name="points" value="{{ $item->points }}"
+                                   id="points"
                                    type="number"
                                    class="form-control">
                         </div>

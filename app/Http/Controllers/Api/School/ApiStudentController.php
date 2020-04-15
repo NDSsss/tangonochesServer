@@ -17,4 +17,18 @@ class ApiStudentController extends BaseApiController
         $result = StudentTicketsResource::collection($student->lessonsLeft);
         return $result;
     }
+
+    public function getStudentInfoByTicketId(ApiGetStudentRequest $request)
+    {
+        $studentsRepository = app(StudentsRepository::class);
+        $barcodeId = (int)$request->input('barcode_id');
+        $student = $studentsRepository->getStudentByBarcodeId($barcodeId);
+        $tickets = StudentTicketsResource::collection($student->lessonsLeft);
+        $points = $student->points;
+        $result = [];
+        $result['tickets'] = $tickets;
+        $result['points'] = $points;
+        $resultObject = (object)$result;
+        return response()->json($resultObject);
+    }
 }

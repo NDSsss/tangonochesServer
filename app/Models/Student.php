@@ -34,6 +34,7 @@ class Student extends Model
         'extra_info',
         'push_token',
         'barcode_id',
+        'points',
     ];
 
     public function lessonsLeft(){
