@@ -29,7 +29,7 @@
                                             </li>
                                             <li><a href='{{route('admin.school.ticketCountTypes.index')}}'>Возможное количество занятий в абонементе</a>
                                             </li>
-                                            <li><a href='{{route('admin.school.ticketEventTypes.index')}}'>ВОзможные типы абонементов</a>
+                                            <li><a href='{{route('admin.school.ticketEventTypes.index')}}'>Возможные типы абонементов</a>
                                             </li>
                                             <li><a href='{{route('admin.school.lessons.index')}}'>Уроки</a>
                                             </li>
