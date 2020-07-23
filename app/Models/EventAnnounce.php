@@ -21,6 +21,7 @@ class EventAnnounce extends Model
         'address',
         'extra_info',
         'is_active',
+        'image'
     ];
 
     protected $casts = [
