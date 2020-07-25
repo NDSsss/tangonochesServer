@@ -32,6 +32,7 @@
                                             <li><a href='{{route('admin.school.ticketEventTypes.index')}}'>Возможные типы абонементов</a>
                                             </li>
                                             <li><a href='{{route('admin.school.lessons.index')}}'>Уроки</a>
+                                                gdfghdfhfghfghgf
                                             </li>
                                             <li><a href='{{route('admin.school.tickets.index')}}'>Абонементы</a>
                                             </li>
