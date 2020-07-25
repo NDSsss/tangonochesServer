@@ -60,6 +60,8 @@ Route::group(['namespace' => 'Api', 'prefix' => '/teacher', 'middleware' => 'API
     Route::get('allTeachers', 'School\ApiTeacherTeachersController@getAllTeachers');
 });
 
+Route::post('vkBot','VkController@vkEvent');
+
 Route::get('deploy', function () {
     Artisan::call('git:deploy');
     exit("deployed");

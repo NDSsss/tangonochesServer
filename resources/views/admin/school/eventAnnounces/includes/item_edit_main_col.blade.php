@@ -57,6 +57,18 @@
                                    required>
                         </div>
                     </div>
+
+                    <div class="tab-pane active" id="maindata" role="tabpanel">
+                        <div class="form-group">
+                            <label for="image">Изображение</label>
+                            <input name="image" value="{{ $item->image }}"
+                                   id="image"
+                                   type="text"
+                                   class="form-control"
+                                   minlength="3">
+                        </div>
+                    </div>
+
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
                             <label for="extra_info">Доп информация</label>
