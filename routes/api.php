@@ -23,8 +23,12 @@ Route::group(['namespace' => 'vk', 'prefix' => 'vk'], function () {
     Route::post('/', 'VkApiController@postRequest');
 });
 Route::group(['namespace' => 'Api', 'prefix' => '/student'], function () {
-    Route::get('/student', 'School\ApiStudentController@getStudentByTicketId');
-    Route::get('/studentInfo', 'School\ApiStudentController@getStudentInfoByTicketId');
+    Route::post('/login', 'School\ApiStudentController@login');
+    Route::group(['prefix' => '/protected', 'middleware' => 'StudentToken'], function (){
+        Route::post('/notification/{id}', 'School\ApiStudentController@getNotification');
+        Route::get('/detail', 'School\ApiStudentController@getStudentByTicketId');
+        Route::get('/info', 'School\ApiStudentController@getStudentInfoByTicketId');
+    });
     Route::get('/lessonAnnounces', 'School\ApiAnnouncesController@lessonAnnounces');
     Route::get('/eventAnnounces', 'School\ApiAnnouncesController@eventAnnounces');
 });
@@ -66,3 +70,5 @@ Route::get('deploy', function () {
     Artisan::call('git:deploy');
     exit("deployed");
 });
+
+Route::post('test', 'Api\Notifications\NotificationController@create');
