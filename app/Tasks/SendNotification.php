@@ -44,13 +44,21 @@ class SendNotification
                             \App\Jobs\SendNotification::dispatch($notification, $androidToken, 'fcm')->onQueue('notification');
                         }
                     }
-                    /*if (($notificationData['platform'] == 'all' || $notificationData['platform'] == 'ios')) {
-                        $iosUsers = Student::whereBetween('id', [$i, $i+($chunk-1)])
+                    if (($notification['platform'] == 'all' || $notification['platform'] == 'ios')) {
+                        $iosTokens = Student::whereBetween('id', [$i, $i+($chunk-1)])
+                            ->whereHas('notifications', function ($query) use($notification) {
+                                $query->where('notification_id', $notification->id);
+                            })
                             ->where("platform", "ios")
+                            ->where('push_token', '!=', NULL)
+                            ->where('push_token', '!=', '')
                             ->pluck('push_token')
                             ->chunk(100)
                             ->toArray();
-                    }*/
+                        foreach ($iosTokens as $iosToken) {
+                            \App\Jobs\SendNotification::dispatch($notification, $iosToken, 'apns')->onQueue('notification');
+                        }
+                    }
                 }
             }
         }

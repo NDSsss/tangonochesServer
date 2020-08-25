@@ -18,8 +18,10 @@ class StudentToken
     {
         if ($request->header('Authorization')) {
             $student = Student::where('api_token', $request->header('Authorization'))->first();
-            if(isset($student))
+            if(isset($student)){
+                $request->user = $student;
                 return $next($request);
+            }
             else {
                 return response()->json([
                     'message' => 'Not a valid API request.',

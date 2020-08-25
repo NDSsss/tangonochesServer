@@ -26,9 +26,10 @@ Route::group(['namespace' => 'Api', 'prefix' => '/student'], function () {
     Route::post('/login', 'School\ApiStudentController@login');
     Route::group(['prefix' => '/protected', 'middleware' => 'StudentToken'], function (){
         Route::post('/notification/{id}', 'School\ApiStudentController@getNotification');
-        Route::get('/detail', 'School\ApiStudentController@getStudentByTicketId');
-        Route::get('/info', 'School\ApiStudentController@getStudentInfoByTicketId');
+        Route::get('/info', 'School\ApiStudentController@getStudentInfo');
     });
+    Route::get('/student', 'School\ApiStudentController@getStudentByTicketId');
+    Route::get('/studentInfo', 'School\ApiStudentController@getStudentInfoByTicketId');
     Route::get('/lessonAnnounces', 'School\ApiAnnouncesController@lessonAnnounces');
     Route::get('/eventAnnounces', 'School\ApiAnnouncesController@eventAnnounces');
 });

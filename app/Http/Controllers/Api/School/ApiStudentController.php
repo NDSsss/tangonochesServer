@@ -48,6 +48,13 @@ class ApiStudentController extends BaseApiController
         }else return response()->json(['message' => 'Неверный запрос !'], 400);
     }
 
+    public function getStudentInfo(Request $request)
+    {
+        $student = $request->user;
+        $result = StudentTicketsResource::collection($student->lessonsLeft);
+        return $result;
+    }
+
     public function getStudentByTicketId(ApiGetStudentRequest $request)
     {
         $studentsRepository = app(StudentsRepository::class);
