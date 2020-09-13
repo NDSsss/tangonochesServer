@@ -137,6 +137,16 @@
 
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
+                            <label for="password">password</label>
+                            <input name="password" value=""
+                                   id="password"
+                                   type="text"
+                                   class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="tab-pane active" id="maindata" role="tabpanel">
+                        <div class="form-group">
                             <label for="barcode_id">Баллы</label>
                             <input name="points" value="{{ $item->points }}"
                                    id="points"

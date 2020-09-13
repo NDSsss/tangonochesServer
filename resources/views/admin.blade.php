@@ -41,6 +41,8 @@
                                             </li>
                                             <li><a href='{{route('admin.school.lessonAnnounces.index')}}'>Рассписание уроков</a>
                                             </li>
+                                            <li><a href='{{route('admin.school.notifications.index')}}'>Уведомления</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
