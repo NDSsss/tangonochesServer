@@ -12,11 +12,11 @@ class Firebase
         //Log::info("Firebase");
         PushNotification::setService('fcm')
             ->setMessage([
-                'notification' => [
+                /*'notification' => [
                     'title' => $title,
                     'body' => $message,
                     'sound' => 'default'
-                ],
+                ],*/
                 'data' => [
                     'message_title' => $title,
                     'message_body' => $message,
