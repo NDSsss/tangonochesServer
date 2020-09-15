@@ -18,13 +18,13 @@ class SendNotification
     public static function execute()
     {
         $notifications = Notification::where("date", date("Y-m-d H:i"))->get();
-        //Log::info($notifications->count());
+        Log::info($notifications->count());
 
         $chunk = 1000;
         $usersCount = Student::get()->count();
 
         if($notifications){
-            //Log::info("notifications");
+            Log::info("notifications");
             foreach ($notifications as $notification){
                 $notification['notification_id'] = $notification->id;
                 for ($i = 1; $i <= $usersCount; $i += $chunk) {
@@ -39,7 +39,7 @@ class SendNotification
                             ->pluck('push_token')
                             ->chunk(100)
                             ->toArray();
-                        //Log::debug('SendNotification', $androidTokens);
+                        Log::debug('SendNotification', $androidTokens);
                         foreach ($androidTokens as $androidToken) {
                             \App\Jobs\SendNotification::dispatch($notification, $androidToken, 'fcm')->onQueue('notification');
                         }

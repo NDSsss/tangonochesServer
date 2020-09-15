@@ -19,6 +19,15 @@ class ApiStudentController extends BaseApiController
         $this->studentsRepository = $studentsRepository;
     }
 
+    public function logout (Request $request)
+    {
+        $student = $request->user;
+        $this->studentsRepository->updateField($student->id, 'api_token', null);
+        $this->studentsRepository->updateField($student->id, 'api_token', null);
+
+        return response()->json(['message' => 'Успешно'], 200);
+    }
+
     public function login (Request $request)
     {
         $password = $request->get('password');

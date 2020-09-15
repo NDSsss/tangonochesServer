@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Models\Student;
 use App\Models\StudentsTicketTypesLessonsLeft;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
@@ -80,12 +81,25 @@ class StudentsLessonsLeftRepository
             } else {
                 $changingItem = $found->first();
                 $changingItem->lessons_left--;
+                if($changingItem->lessons_left <= 0){
+                    $this->sendLessonsOverNotification($id);
+                }
                 $changingItem->save();
                 \Log::debug("saved $changingItem");
             }
         }
 
         return true;
+    }
+
+    protected function sendLessonsOverNotification($studentId){
+        $notification = (object) array(
+            'notification_id' => $studentId,
+            'title' => config('messages.notifications'),
+            'text' => config('messages.notifications')
+        );
+        $student = Student::find($studentId);
+        \App\Jobs\SendNotification::dispatch($notification, $student->push_token, 'fcm')->onQueue('notification');
     }
 
 

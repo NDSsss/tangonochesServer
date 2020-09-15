@@ -27,6 +27,7 @@ Route::group(['namespace' => 'Api', 'prefix' => '/student'], function () {
     Route::group(['prefix' => '/protected', 'middleware' => 'StudentToken'], function (){
         Route::post('/notification/{id}', 'School\ApiStudentController@getNotification');
         Route::get('/info', 'School\ApiStudentController@getStudentInfo');
+        Route::get('/logout', 'School\ApiStudentController@logout');
     });
     Route::get('/student', 'School\ApiStudentController@getStudentByTicketId');
     Route::get('/studentInfo', 'School\ApiStudentController@getStudentInfoByTicketId');
