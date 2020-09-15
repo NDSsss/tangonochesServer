@@ -59,7 +59,7 @@ class NotificationRepo extends BaseRepository
     {
         $notification = Notification::find($id);
         $students = $notification->students;
-        $allStudents = Student::query()->select(['id', 'name'])->get();
+        $allStudents = Student::query()->select(['id', 'name'])->orderBy('name')->get();
         foreach ($allStudents as $student) {
             if ($students->contains('id', $student->id)) {
                 $student->selected = true;
