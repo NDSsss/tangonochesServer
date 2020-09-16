@@ -93,11 +93,11 @@ class StudentsLessonsLeftRepository
     }
 
     protected function sendLessonsOverNotification($studentId){
-        $notification = (object) array(
+        $notification = [
             'notification_id' => $studentId,
             'title' => config('messages.notifications'),
             'text' => config('messages.notifications')
-        );
+        ];
         $student = Student::find($studentId);
         \App\Jobs\SendNotification::dispatch($notification, $student->push_token, 'fcm')->onQueue('notification');
     }
