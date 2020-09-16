@@ -51,6 +51,12 @@ class StudentsRepository extends BaseRepository
 
     }
 
+    public function updateField($id, $key, $value)
+    {
+        Student::where('id', $id)->update(array($key => $value));
+
+    }
+
     function storeItem($data): Model
     {
         if (key_exists('vk_profile_link', $data)) {

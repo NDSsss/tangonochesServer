@@ -59,8 +59,8 @@ class AdminSchoolLessonsController extends BaseSimpleAdminSchoolController
 
     public function store(AdminSchoolLessonsRequest $request)
     {
-        $group = $this->repository->storeItem($request->input());
-        if ($group) {
+        $result = $this->repository->storeItem($request->input());
+        if ($result) {
             return redirect()->route($this->currentPath . '.edit', [$group->id])
                 ->with(['success' => 'Успешно сохранено']);
         } else {

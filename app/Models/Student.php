@@ -35,9 +35,20 @@ class Student extends Model
         'push_token',
         'barcode_id',
         'points',
+        'platform',
+        'password',
+        'api_token'
+    ];
+
+    protected $hidden = [
+        'password', 'api_token',
     ];
 
     public function lessonsLeft(){
         return $this->hasMany(StudentsTicketTypesLessonsLeft::class, 'student_id', 'id');
+    }
+
+    public function notifications(){
+        return $this->belongsToMany(Notification::class, 'notifications_students', 'student_id', 'notification_id')->select(['id']);
     }
 }
