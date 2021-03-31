@@ -74,3 +74,6 @@ Route::get('deploy', function () {
 });
 
 Route::post('test', 'Api\Notifications\NotificationController@create');
+Route::get('androidApp', function () {
+    exit(env('ANDROID_APP_URL'));
+});

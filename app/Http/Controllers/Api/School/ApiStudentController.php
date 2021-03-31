@@ -60,8 +60,10 @@ class ApiStudentController extends BaseApiController
     public function getStudentInfo(Request $request)
     {
         $student = $request->user;
-        $result = StudentTicketsResource::collection($student->lessonsLeft);
-        return $result;
+        $result = [];
+        $result['tickets'] = StudentTicketsResource::collection($student->lessonsLeft);
+        $result['points'] = $student->points;
+        return response()->json($result, 200);;
     }
 
     public function getStudentByTicketId(ApiGetStudentRequest $request)
